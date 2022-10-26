@@ -1,3 +1,6 @@
 # Plankton
-A small game library made for educational purposes.\
-Note: This project is in very-very early development stage that you can't call this a game library yet.
+A small OpenGL game library made for educational purposes.\
+This project is in very-very early development stage.\
+\
+Since I'm still new to OpenGL, this library probably won't be as efficient as other.
+But I still intend to make this library to be usable and also make it to my top 5 game libraries to use.

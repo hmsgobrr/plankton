@@ -1,6 +1,5 @@
 #include "GLErrorManager.h"
 
-#include <stdlib.h>
 #include <iostream>
 
 void GLAPIENTRY GLLogMessage(GLenum source, GLenum type, GLuint id, GLenum severity,
