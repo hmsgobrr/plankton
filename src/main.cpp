@@ -13,7 +13,6 @@
 
 int main(void) {
     pt::initWindow(SCR_WIDTH, SCR_HEIGHT, "lol");
-    PT_INFO(ASSETS_PATH);
 
     Shader shader(ASSETS_PATH"shaders/vertexShader.vert", ASSETS_PATH"shaders/fragmentShader.frag");
 

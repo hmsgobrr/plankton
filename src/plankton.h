@@ -1,7 +1,6 @@
 #ifndef PLANKTON_H
 #define PLANKTON_H
 
-#include "Window.h"
 #include "Log.h"
 
 #include <string.h>
