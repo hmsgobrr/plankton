@@ -1,4 +1,5 @@
-#include "plankton.h"
+#include "Window.h"
+#include "Log.h"
 
 #include "GLErrorManager.h"
 
