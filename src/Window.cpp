@@ -5,6 +5,13 @@
 
 namespace pt {
 
+static void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods) {
+    if (key < 0) return; // In case of key that generates -1 or lower like MacOS fn key gets pressed
+
+    if (action == GLFW_RELEASE) Window::getInstance().setCurrentKeyState(key, false);
+    else Window::getInstance().setCurrentKeyState(key, true);
+}
+
 void Window::init(int windowWidth, int windowHeight, const char* windowTitle) {
     // Init GLFW
     if (!glfwInit()) {
@@ -29,6 +36,9 @@ void Window::init(int windowWidth, int windowHeight, const char* windowTitle) {
     glfwMakeContextCurrent(m_glfwWindow);
     glfwSetWindowAttrib(m_glfwWindow, GLFW_RESIZABLE, GLFW_FALSE);
 
+    // Set callback for keyboard inputs
+    glfwSetKeyCallback(m_glfwWindow, keyCallback);
+
     // Init GLAD
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         glfwTerminate();
@@ -39,6 +49,33 @@ void Window::init(int windowWidth, int windowHeight, const char* windowTitle) {
     glDebugMessageCallback(GLLogMessage, nullptr);
     glEnable(GL_DEBUG_OUTPUT);
     glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+}
+
+void Window::pollEvents() {
+    // save last key states before updating them
+    for (int i = 0; i < PT_MAX_KEYBOARD_KEYS; i++) {
+        m_lastKeyState[i] = m_currentKeyState[i];
+    }
+
+    glfwPollEvents();
+}
+
+bool Window::isKeyPressed(int key) {
+    return !m_lastKeyState[key] && m_currentKeyState[key];
+}
+bool Window::isKeyReleased(int key) {
+    return m_lastKeyState[key] && !m_currentKeyState[key];
+}
+bool Window::isKeyDown(int key) {
+    return m_currentKeyState[key];
+}
+bool Window::isKeyUp(int key) {
+    return !m_currentKeyState[key];
+}
+
+void Window::setCurrentKeyState(int key, bool isActive) {
+    if (key >= PT_MAX_KEYBOARD_KEYS) return;
+    m_currentKeyState[key] = isActive;
 }
 
 } // namespace pt

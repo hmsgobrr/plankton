@@ -51,9 +51,9 @@ int main(void) {
     shader.use();
 
     while (!pt::windowShouldClose()) {
-        // if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-        //     glfwSetWindowShouldClose(window, true);
-        // }
+        if (pt::isKeyPressed(pt::Key::KEY_ESCAPE)) {
+            pt::exitWindow();
+        }
 
         pt::clearWindow(0.4f, 0.5f, 0.3f, 1.0f);
 

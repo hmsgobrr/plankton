@@ -16,7 +16,7 @@ bool windowShouldClose() {
 }
 
 void exitWindow() {
-    glfwSetWindowShouldClose(Window::getInstance().getGLFWWindow(), false);
+    glfwSetWindowShouldClose(Window::getInstance().getGLFWWindow(), true);
 }
 
 void clearWindow(float red, float green, float blue, float alpha) {
@@ -26,11 +26,24 @@ void clearWindow(float red, float green, float blue, float alpha) {
 
 void displayWindow() {
     glfwSwapBuffers(Window::getInstance().getGLFWWindow());
-    glfwPollEvents();
+    Window::getInstance().pollEvents();
 }
 
 void shutdown() {
     glfwTerminate();
+}
+
+bool isKeyPressed(Key key) {
+    return Window::getInstance().isKeyPressed(static_cast<int>(key));
+}
+bool isKeyReleased(Key key) {
+    return Window::getInstance().isKeyReleased(static_cast<int>(key));
+}
+bool isKeyDown(Key key) {
+    return Window::getInstance().isKeyDown(static_cast<int>(key));
+}
+bool isKeyUp(Key key) {
+    return Window::getInstance().isKeyUp(static_cast<int>(key));
 }
 
 } // namespace pt
