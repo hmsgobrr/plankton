@@ -45,5 +45,8 @@ bool isKeyDown(Key key) {
 bool isKeyUp(Key key) {
     return Window::getInstance().isKeyUp(static_cast<int>(key));
 }
+Key getKeyPressed() {
+    return static_cast<Key>(Window::getInstance().getKeyPressed());
+}
 
 } // namespace pt

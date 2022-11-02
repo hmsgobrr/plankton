@@ -8,8 +8,13 @@ namespace pt {
 static void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods) {
     if (key < 0) return; // In case of key that generates -1 or lower like MacOS fn key gets pressed
 
-    if (action == GLFW_RELEASE) Window::getInstance().setCurrentKeyState(key, false);
-    else Window::getInstance().setCurrentKeyState(key, true);
+    if (action == GLFW_RELEASE) {
+        Window::getInstance().setCurrentKeyState(key, false);
+        return;
+    }
+    
+    Window::getInstance().setCurrentKeyState(key, true);
+    Window::getInstance().enqueueKey(key);
 }
 
 void Window::init(int windowWidth, int windowHeight, const char* windowTitle) {
@@ -57,6 +62,11 @@ void Window::pollEvents() {
         m_lastKeyState[i] = m_currentKeyState[i];
     }
 
+    // reset key queue
+    for (int i = 0; i < m_pressedKeyQueue.size(); i++) {
+        m_pressedKeyQueue.pop();
+    }
+
     glfwPollEvents();
 }
 
@@ -72,10 +82,22 @@ bool Window::isKeyDown(int key) {
 bool Window::isKeyUp(int key) {
     return !m_currentKeyState[key];
 }
+int Window::getKeyPressed() {
+    if (m_pressedKeyQueue.empty()) return 0;
+    
+    int key = m_pressedKeyQueue.front();
+    m_pressedKeyQueue.pop();
+
+    return key;
+}
 
 void Window::setCurrentKeyState(int key, bool isActive) {
     if (key >= PT_MAX_KEYBOARD_KEYS) return;
     m_currentKeyState[key] = isActive;
+}
+
+void Window::enqueueKey(int key) {
+    m_pressedKeyQueue.push(key);
 }
 
 } // namespace pt
