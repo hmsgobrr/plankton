@@ -53,7 +53,7 @@ int main(void) {
     while (!pt::windowShouldClose()) {
         pt::prepareFrame();
 
-        PT_INFO("FPS: {}", 1.0/pt::getDeltaTime());
+        PT_INFO("FPS: {}", 1.0f/pt::getDeltaTime());
 
         if (pt::isKeyPressed(pt::Key::KEY_ESCAPE)) {
             pt::exitWindow();
