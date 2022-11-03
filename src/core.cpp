@@ -26,11 +26,18 @@ void clearWindow(float red, float green, float blue, float alpha) {
 
 void displayWindow() {
     glfwSwapBuffers(Window::getInstance().getGLFWWindow());
-    Window::getInstance().pollEvents();
+}
+
+void prepareFrame() {
+    Window::getInstance().prepareFrame();
 }
 
 void shutdown() {
     glfwTerminate();
+}
+
+float getDeltaTime() {
+    return Window::getInstance().getDeltaTime();
 }
 
 bool isKeyPressed(Key key) {

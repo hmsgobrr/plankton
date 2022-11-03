@@ -10,7 +10,9 @@ bool windowShouldClose();
 void exitWindow();
 void clearWindow(float red, float green, float blue, float alpha);
 void displayWindow();
+void prepareFrame();
 void shutdown();
+float getDeltaTime();
 
 enum class Key {
     NO_KEY              = 0,

@@ -23,7 +23,7 @@ public:
     }
 
     void init(int windowWidth, int windowHeight, const char* windowTitle);
-    void pollEvents();
+    void prepareFrame();
 
     bool isKeyPressed(int key);
     bool isKeyReleased(int key);
@@ -32,12 +32,16 @@ public:
     int getKeyPressed();
 
     GLFWwindow* getGLFWWindow() { return m_glfwWindow; }
+    float getDeltaTime() { return m_deltaTime; }
     void setCurrentKeyState(int key, bool isActive);
     void enqueueKey(int key);
 private:
     Window() {}
 
     GLFWwindow* m_glfwWindow;
+
+    float m_lastFrameTime;
+    float m_deltaTime;
 
     bool m_currentKeyState[PT_MAX_KEYBOARD_KEYS];
     bool m_lastKeyState[PT_MAX_KEYBOARD_KEYS];

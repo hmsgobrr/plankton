@@ -56,7 +56,12 @@ void Window::init(int windowWidth, int windowHeight, const char* windowTitle) {
     glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 }
 
-void Window::pollEvents() {
+void Window::prepareFrame() {
+    // update delta time
+    float currentTime = glfwGetTime();
+    m_deltaTime = currentTime - m_lastFrameTime;
+    m_lastFrameTime = currentTime;
+
     // save last key states before updating them
     for (int i = 0; i < PT_MAX_KEYBOARD_KEYS; i++) {
         m_lastKeyState[i] = m_currentKeyState[i];

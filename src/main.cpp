@@ -51,6 +51,10 @@ int main(void) {
     shader.use();
 
     while (!pt::windowShouldClose()) {
+        pt::prepareFrame();
+
+        PT_INFO("FPS: {}", 1.0/pt::getDeltaTime());
+
         if (pt::isKeyPressed(pt::Key::KEY_ESCAPE)) {
             pt::exitWindow();
         }
