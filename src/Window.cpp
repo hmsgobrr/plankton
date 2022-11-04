@@ -68,9 +68,10 @@ void Window::prepareFrame() {
     }
 
     // reset key queue
-    for (int i = 0; i < m_pressedKeyQueue.size(); i++) {
-        m_pressedKeyQueue.pop();
+    for (int i = 0; i < m_pressedKeyCount; i++) {
+        m_pressedKeyQueue[i] = 0;
     }
+    m_pressedKeyCount = 0;
 
     glfwPollEvents();
 }
@@ -88,10 +89,15 @@ bool Window::isKeyUp(int key) {
     return !m_currentKeyState[key];
 }
 int Window::getKeyPressed() {
-    if (m_pressedKeyQueue.empty()) return 0;
+    if (m_pressedKeyCount < 1) return 0;
     
-    int key = m_pressedKeyQueue.front();
-    m_pressedKeyQueue.pop();
+    int key = m_pressedKeyQueue[0];
+    // shift key queue forward
+    for (int i = 0; i < m_pressedKeyCount - 1; i++) {
+        m_pressedKeyQueue[i] = m_pressedKeyQueue[i + 1];
+    }
+    m_pressedKeyQueue[m_pressedKeyCount] = 0;
+    m_pressedKeyCount--;
 
     return key;
 }
@@ -102,7 +108,8 @@ void Window::setCurrentKeyState(int key, bool isActive) {
 }
 
 void Window::enqueueKey(int key) {
-    m_pressedKeyQueue.push(key);
+    m_pressedKeyQueue[m_pressedKeyCount] = key;
+    m_pressedKeyCount++;
 }
 
 } // namespace pt

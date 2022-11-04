@@ -21,7 +21,7 @@ std::string Shader::loadShaderFromFile(const std::string& shaderFilePath) {
         return shaderStream.str();
     } catch (std::ifstream::failure e) {
         std::cout << "ERR! Failed to read shader file.\n\t"
-            << "FilePath:\t" << shaderFilePath << "\n\tError:\t\t" << strerror(errno) << std::endl;
+            << "FilePath:\t" << shaderFilePath << std::endl;
         return nullptr;
     }
 }

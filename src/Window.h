@@ -10,6 +10,10 @@
 #define PT_MAX_KEYBOARD_KEYS 512
 #endif
 
+#ifndef PT_MAX_PRESSED_KEY_QUEUE
+#define PT_MAX_PRESSED_KEY_QUEUE 16
+#endif
+
 namespace pt {
 
 class Window {
@@ -36,7 +40,14 @@ public:
     void setCurrentKeyState(int key, bool isActive);
     void enqueueKey(int key);
 private:
-    Window() {}
+    Window():
+        m_glfwWindow(0),
+        m_lastFrameTime(0.0f),
+        m_deltaTime(0.0f),
+        m_currentKeyState(),
+        m_lastKeyState(),
+        m_pressedKeyQueue(),
+        m_pressedKeyCount(0) {}
 
     GLFWwindow* m_glfwWindow;
 
@@ -45,7 +56,9 @@ private:
 
     bool m_currentKeyState[PT_MAX_KEYBOARD_KEYS];
     bool m_lastKeyState[PT_MAX_KEYBOARD_KEYS];
-    std::queue<int> m_pressedKeyQueue;
+
+    int m_pressedKeyQueue[PT_MAX_PRESSED_KEY_QUEUE];
+    int m_pressedKeyCount;
 };
 
 } // namespace pt
