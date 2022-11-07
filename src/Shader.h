@@ -1,14 +1,17 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-#include "glad/glad.h"
+#include "glm/glm.hpp"
 
 #include <string>
 #include <unordered_map>
 
+namespace pt {
+
 class Shader {
 public:
-    Shader(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
+    void create(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
+    void destroy();
 
     void use();
     void unuse();
@@ -16,6 +19,7 @@ public:
     void setUniform(const std::string& uniformName, bool value);
     void setUniform(const std::string& uniformName, int value);
     void setUniform(const std::string& uniformName, float value);
+    void setUniform(const std::string& uniformName, const glm::mat4& matrix4);
 private:
     unsigned int mProgramId;
     std::unordered_map<std::string, int> mUniformLocationCache;
@@ -28,5 +32,7 @@ private:
     unsigned int createShader(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
     int getUniformLocation(const std::string& name);
 };
+
+}
 
 #endif // SHADER_H

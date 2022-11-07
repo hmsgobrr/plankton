@@ -2,13 +2,14 @@
 #define PLANKTON_H
 
 #include "Log.h"
+#include "Utils.h"
 
 namespace pt {
 
 void initWindow(int windowWidth, int windowHeight, const char* windowTitle);
 bool windowShouldClose();
 void exitWindow();
-void clearWindow(float red, float green, float blue, float alpha);
+void clearFrame(Color color);
 void displayWindow();
 void prepareFrame();
 void shutdown();

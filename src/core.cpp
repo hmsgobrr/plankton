@@ -10,7 +10,11 @@ namespace pt {
 void initWindow(int windowWidth, int windowHeight, const char* windowTitle) {
     Log::init();
     Window::getInstance().init(windowWidth, windowHeight, windowTitle);
-    Renderer::getInstance().init(Window::getInstance().getGLFWWindow());
+    Renderer::getInstance().init(
+        Window::getInstance().getGLFWWindow(),
+        static_cast<float>(windowWidth),
+        static_cast<float>(windowHeight)
+    );
 }
 
 bool windowShouldClose() {
@@ -21,9 +25,8 @@ void exitWindow() {
     glfwSetWindowShouldClose(Window::getInstance().getGLFWWindow(), true);
 }
 
-void clearWindow(float red, float green, float blue, float alpha) {
-    glClearColor(red, green, blue, alpha);
-    glClear(GL_COLOR_BUFFER_BIT);
+void clearFrame(Color color) {
+    Renderer::getInstance().clearFrame(color);
 }
 
 void displayWindow() {

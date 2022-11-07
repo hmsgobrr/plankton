@@ -1,12 +1,20 @@
 #include "Shader.h"
 
+#include "glad/glad.h"
+#include "glm/gtc/type_ptr.hpp"
+
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include <cstring>
 
-Shader::Shader(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath) {
+namespace pt {
+
+void Shader::create(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath) {
     mProgramId = createShader(loadShaderFromFile(vertexShaderFilePath), loadShaderFromFile(fragmentShaderFilePath));
+}
+
+void Shader::destroy() {
+    glDeleteProgram(mProgramId);
 }
 
 std::string Shader::loadShaderFromFile(const std::string& shaderFilePath) {
@@ -83,6 +91,9 @@ void Shader::setUniform(const std::string& uniformName, int value) {
 void Shader::setUniform(const std::string& uniformName, float value) {
     glUniform1f(getUniformLocation(uniformName), value);
 }
+void Shader::setUniform(const std::string& uniformName, const glm::mat4& matrix4) {
+    glUniformMatrix4fv(getUniformLocation(uniformName), 1, false, glm::value_ptr(matrix4));
+}
 
 int Shader::getUniformLocation(const std::string& uniformName) {
     if (mUniformLocationCache.find(uniformName) != mUniformLocationCache.end())
@@ -95,4 +106,6 @@ int Shader::getUniformLocation(const std::string& uniformName) {
     mUniformLocationCache[uniformName] = location;
 
     return location;
+}
+
 }

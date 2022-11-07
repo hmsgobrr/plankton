@@ -4,6 +4,9 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
+#include "Shader.h"
+#include "Utils.h"
+
 namespace pt {
 
 class Renderer {
@@ -16,9 +19,16 @@ public:
 		return instance;
 	}
 
-	void init(GLFWwindow* contextWindow);
+	void init(GLFWwindow* contextWindow, float frameWidth, float frameHeight);
+	void shutdown();
+
+	void clearFrame(Color color);
+	void drawRect(Rect rect, Color color);
 private:
 	Renderer() {}
+
+	Shader m_shapeShader;
+	unsigned int m_quadVAO;
 };
 
 }
