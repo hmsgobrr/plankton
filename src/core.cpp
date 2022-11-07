@@ -1,5 +1,6 @@
 #include "plankton.h"
 #include "Window.h"
+#include "Renderer.h"
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
@@ -9,6 +10,7 @@ namespace pt {
 void initWindow(int windowWidth, int windowHeight, const char* windowTitle) {
     Log::init();
     Window::getInstance().init(windowWidth, windowHeight, windowTitle);
+    Renderer::getInstance().init(Window::getInstance().getGLFWWindow());
 }
 
 bool windowShouldClose() {

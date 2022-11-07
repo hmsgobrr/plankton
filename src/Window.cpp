@@ -1,12 +1,11 @@
 #include "Window.h"
-#include "Log.h"
 
-#include "GLErrorManager.h"
+#include "Log.h"
 
 namespace pt {
 
 static void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods) {
-    if (key < 0) return; // In case of key that generates -1 or lower like MacOS fn key gets pressed
+    if (key < 0) return; // In case key that generates -1 or lower like MacOS fn key gets pressed
 
     if (action == GLFW_RELEASE) {
         Window::getInstance().setCurrentKeyState(key, false);
@@ -32,28 +31,14 @@ void Window::init(int windowWidth, int windowHeight, const char* windowTitle) {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-    // Create OpenGL context window
+    // Create window
     m_glfwWindow = glfwCreateWindow(windowWidth, windowHeight, windowTitle, NULL, NULL);
     if (!m_glfwWindow) {
         PT_CORE_CRITICAL("Window creation failed");
         return;
     }
-    glfwMakeContextCurrent(m_glfwWindow);
     glfwSetWindowAttrib(m_glfwWindow, GLFW_RESIZABLE, GLFW_FALSE);
-
-    // Set callback for keyboard inputs
     glfwSetKeyCallback(m_glfwWindow, keyCallback);
-
-    // Init GLAD
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        glfwTerminate();
-        PT_CORE_CRITICAL("GLAD init failed");
-        return;
-    }
-
-    glDebugMessageCallback(GLLogMessage, nullptr);
-    glEnable(GL_DEBUG_OUTPUT);
-    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 }
 
 void Window::prepareFrame() {

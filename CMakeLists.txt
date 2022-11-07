@@ -4,10 +4,9 @@ project(plankton C CXX)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(SOURCES src/main.cpp src/GLErrorManager.cpp src/Shader.cpp src/core.cpp src/Window.cpp src/Log.cpp)
-set(HEADERS src/GLErrorManager.h src/Shader.h src/plankton.h src/Window.h src/Log.h)
+file(GLOB SOURCE "src/*.cpp" "src/*.h")
 
-add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
+add_executable(${PROJECT_NAME} ${SOURCE})
 # target_compile_definitions(${PROJECT_NAME} PUBLIC DEBUG)
 
 # glad
