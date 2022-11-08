@@ -39,10 +39,15 @@ void prepareFrame() {
 
 void shutdown() {
     glfwTerminate();
+    Renderer::getInstance().shutdown();
 }
 
 float getDeltaTime() {
     return Window::getInstance().getDeltaTime();
+}
+
+void drawRect(Rect rect, Color color) {
+    Renderer::getInstance().drawRect(rect, color);
 }
 
 bool isKeyPressed(Key key) {

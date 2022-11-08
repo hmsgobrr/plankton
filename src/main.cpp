@@ -15,7 +15,9 @@ int main(void) {
             pt::exitWindow();
         }
 
-        pt::clearFrame({ 0.2f, 0.2f, 0.2f, 1.0f });
+        pt::clearFrame({ 0.1f, 0.1f, 0.1f, 1.0f });
+
+        pt::drawRect({ SCR_WIDTH / 2 - 100 / 2, SCR_HEIGHT / 2 - 100 / 2, 100, 100 }, { 0.0f, 0.0f, 0.9f, 1.0f });
 
         pt::displayWindow();
     }

@@ -15,6 +15,8 @@ void prepareFrame();
 void shutdown();
 float getDeltaTime();
 
+void drawRect(Rect rect, Color color);
+
 enum class Key {
     NO_KEY              = 0,
     KEY_SPACE           = 32,

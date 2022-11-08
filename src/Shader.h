@@ -19,6 +19,7 @@ public:
     void setUniform(const std::string& uniformName, bool value);
     void setUniform(const std::string& uniformName, int value);
     void setUniform(const std::string& uniformName, float value);
+    void setUniform(const std::string& uniformName, float x, float y, float z, float w);
     void setUniform(const std::string& uniformName, const glm::mat4& matrix4);
 private:
     unsigned int mProgramId;

@@ -25,10 +25,12 @@ public:
 	void clearFrame(Color color);
 	void drawRect(Rect rect, Color color);
 private:
-	Renderer() {}
+	Renderer():
+		m_quadVAO(0),
+		m_quadVBO(0) {}
 
 	Shader m_shapeShader;
-	unsigned int m_quadVAO;
+	unsigned int m_quadVAO, m_quadVBO;
 };
 
 }
