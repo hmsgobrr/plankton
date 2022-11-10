@@ -30,7 +30,7 @@ private:
 		m_quadVBO(0) {}
 
 	Shader m_shapeShader;
-	unsigned int m_quadVAO, m_quadVBO;
+	unsigned int m_quadVAO, m_quadVBO, m_quadIB;
 };
 
 }

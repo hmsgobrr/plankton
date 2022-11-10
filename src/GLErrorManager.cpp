@@ -1,12 +1,12 @@
 #include "GLErrorManager.h"
+#include "Log.h"
 
 #include <iostream>
 
 void GLAPIENTRY GLLogMessage(GLenum source, GLenum type, GLuint id, GLenum severity,
     GLsizei length, const GLchar* message, const void* userParam) {
-char* _source;
+    char* _source;
     char* _type;
-    char* _severity;
 
     switch (source) {
     case GL_DEBUG_SOURCE_API:
@@ -61,23 +61,20 @@ char* _source;
 
     switch (severity) {
     case GL_DEBUG_SEVERITY_HIGH:
-        _severity = (char*)"HIGH";
+        PT_CORE_CRITICAL("OpengGL Critical Error ({}): {} from {}. {}", id, _type, _source, message);
+        ASSERT(false);
         break;
     case GL_DEBUG_SEVERITY_MEDIUM:
-        _severity = (char*)"MEDIUM";
+        PT_CORE_ERROR("OpengGL Error ({}): {} from {}. {}", id, _type, _source, message);
         break;
     case GL_DEBUG_SEVERITY_LOW:
-        _severity = (char*)"LOW";
+        PT_CORE_WARN("OpengGL Minor Error ({}): {} from {}. {}", id, _type, _source, message);
         break;
     case GL_DEBUG_SEVERITY_NOTIFICATION:
-        _severity = (char*)"NOTIFICATION";
+        PT_CORE_INFO("OpengGL Info ({}): {} from {}. {}", id, _type, _source, message);
         break;
     default:
-        _severity = (char*)"UNKNOWN";
+        PT_CORE_INFO("OpengGL Unknown Notification ({}): {} from {}. {}", id, _type, _source, message);
         break;
     }
-
-    std::cout << "[OpenGL Debug] (" << id << "):\n\tType:\t\t" << _type << "\n\tSeverity:\t" << _severity
-        << "\n\tFrom:\t\t" << _source << "\n\tMessage:\t" << message << std::endl;
-    if (severity == GL_DEBUG_SEVERITY_HIGH) ASSERT(false);
 }

@@ -3,6 +3,8 @@
 #include "glad/glad.h"
 #include "glm/gtc/type_ptr.hpp"
 
+#include "Log.h"
+
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -28,8 +30,7 @@ std::string Shader::loadShaderFromFile(const std::string& shaderFilePath) {
 
         return shaderStream.str();
     } catch (std::ifstream::failure e) {
-        std::cout << "ERR! Failed to read shader file.\n\t"
-            << "FilePath:\t" << shaderFilePath << std::endl;
+        PT_CORE_CRITICAL("Failed to read shader file: {}.", shaderFilePath);
         return nullptr;
     }
 }
