@@ -3,6 +3,7 @@
 
 #include "Log.h"
 #include "Utils.h"
+#include "Texture.h"
 
 namespace pt {
 
@@ -15,7 +16,8 @@ void prepareFrame();
 void shutdown();
 float getDeltaTime();
 
-void drawRect(Rect rect, Color color);
+void drawRect(Rect rect, float rotation, Color color);
+void drawTexture(Texture texture, Rect destinationRec, float rotation, Color tint);
 
 enum class Key {
     NO_KEY              = 0,

@@ -6,6 +6,7 @@
 
 #include "Shader.h"
 #include "Utils.h"
+#include "Texture.h"
 
 namespace pt {
 
@@ -23,11 +24,15 @@ public:
 	void shutdown();
 
 	void clearFrame(Color color);
-	void drawRect(Rect rect, Color color);
+	void drawRect(Rect rect, float rotation, Color color);
+	void drawTexture(Texture texture, Rect destinationRec, float rotation, Color tint);
 private:
 	Renderer():
 		m_quadVAO(0),
-		m_quadVBO(0) {}
+		m_quadVBO(0),
+		m_quadIB(0) {}
+
+	void drawQuad(Rect rect, float rotation);
 
 	Shader m_shapeShader;
 	unsigned int m_quadVAO, m_quadVBO, m_quadIB;

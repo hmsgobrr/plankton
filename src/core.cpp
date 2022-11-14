@@ -46,8 +46,12 @@ float getDeltaTime() {
     return Window::getInstance().getDeltaTime();
 }
 
-void drawRect(Rect rect, Color color) {
-    Renderer::getInstance().drawRect(rect, color);
+void drawRect(Rect rect, float rotation, Color color) {
+    Renderer::getInstance().drawRect(rect, rotation, color);
+}
+
+void drawTexture(Texture texture, Rect destinationRec, float rotation, Color tint) {
+    Renderer::getInstance().drawTexture(texture, destinationRec, rotation, tint);
 }
 
 bool isKeyPressed(Key key) {

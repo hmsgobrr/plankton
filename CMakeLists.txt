@@ -5,7 +5,12 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 file(GLOB SOURCE "src/*.cpp" "src/*.h")
-file(GLOB ASSETS "assets/shaders/*.vert" "assets/shaders/*.frag")
+file(GLOB ASSETS
+	"assets/shaders/*.vert"
+	"assets/shaders/*.frag"
+	"assets/*.png"
+	"assets/*.jpg"
+)
 
 add_executable(${PROJECT_NAME} ${SOURCE} ${ASSETS})
 # target_compile_definitions(${PROJECT_NAME} PUBLIC DEBUG)

@@ -26,7 +26,8 @@ void Renderer::init(GLFWwindow* contextWindow, float frameWidth, float frameHeig
     glEnable(GL_DEBUG_OUTPUT);
     glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 
-    glViewport(0, 0, frameWidth, frameHeight);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     m_shapeShader.create(ASSETS_PATH"shaders/shape.vert", ASSETS_PATH"shaders/shape.frag");
     m_shapeShader.use();
@@ -81,7 +82,23 @@ void Renderer::clearFrame(Color color) {
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Renderer::drawRect(Rect rect, Color color) {
+void Renderer::drawRect(Rect rect, float rotation, Color color) {
+    m_shapeShader.setUniform("useTex", false);
+    m_shapeShader.setUniform("shapeColor", color.r, color.g, color.b, color.a);
+
+    drawQuad(rect, rotation);
+}
+
+void Renderer::drawTexture(Texture texture, Rect destinationRec, float rotation, Color tint) {
+    texture.use();
+
+    m_shapeShader.setUniform("useTex", true);
+    m_shapeShader.setUniform("shapeColor", tint.r, tint.g, tint.b, tint.a);
+
+    drawQuad(destinationRec, rotation);
+}
+
+void Renderer::drawQuad(Rect rect, float rotation) {
     m_shapeShader.use();
 
     glm::mat4 model(1.0f);
@@ -89,17 +106,16 @@ void Renderer::drawRect(Rect rect, Color color) {
     // Move to position
     model = glm::translate(model, glm::vec3(rect.x, rect.y, 0.0f));
 
-    // Rotate
-    //model = glm::translate(model, glm::vec3(0.5f * rect.x, 0.5f * rect.y, 0.0f)); // move origin of rotation to center of quad
-    //model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f)); // then rotate
-    //model = glm::translate(model, glm::vec3(-0.5f * rect.x, -0.5f * rect.y, 0.0f)); // move origin back
+    if (rotation != 0.0f) {
+        // Rotate
+        model = glm::translate(model, glm::vec3(0.5f * rect.w, 0.5f * rect.h, 0.0f)); // move origin of rotation to center of quad
+        model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f)); // then rotate
+        model = glm::translate(model, glm::vec3(-0.5f * rect.w, -0.5f * rect.h, 0.0f)); // move origin back
+    }
 
     // Scale
     model = glm::scale(model, glm::vec3(rect.w, rect.h, 1.0f));
     m_shapeShader.setUniform("model", model);
-
-    m_shapeShader.setUniform("useTex", false);
-    m_shapeShader.setUniform("shapeColor", color.r, color.g, color.b, color.a);
 
     glBindVertexArray(m_quadVAO);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
