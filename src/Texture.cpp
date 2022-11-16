@@ -1,9 +1,13 @@
 #include "Texture.h"
 
+#include "Log.h"
+
 #include "glad/glad.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+
+namespace pt {
 
 Texture::Texture(): m_width(0), m_height(0) {
 	glGenTextures(1, &m_id);
@@ -32,12 +36,17 @@ void Texture::create(int width, int height, unsigned char* data, bool dataUsesAl
 void Texture::createFromFile(const std::string& filePath, bool useAlpha) {
 	int width, height, nrChannels;
 	unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &nrChannels, 0);
-
-	create(width, height, data, nrChannels == 4, useAlpha);
+	if (!data) {
+		PT_CORE_ERROR("Unable to open file: {}", filePath.c_str());
+	} else{
+		create(width, height, data, nrChannels == 4, useAlpha);
+	}
 
 	stbi_image_free(data);
 }
 
 void Texture::use() {
 	glBindTexture(GL_TEXTURE_2D, m_id);
+}
+
 }

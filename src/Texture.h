@@ -3,6 +3,8 @@
 
 #include <string>
 
+namespace pt {
+
 class Texture {
 public:
 	Texture();
@@ -18,5 +20,7 @@ private:
 
 	int m_width, m_height;
 };
+
+}
 
 #endif // TEXTURE_H
