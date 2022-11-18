@@ -38,20 +38,20 @@ void prepareFrame() {
 }
 
 void shutdown() {
-    glfwTerminate();
     Renderer::getInstance().shutdown();
+    glfwTerminate();
 }
 
 float getDeltaTime() {
     return Window::getInstance().getDeltaTime();
 }
 
-void drawRect(Rect rect, float rotation, Color color) {
+void drawRect(const Rect& rect, float rotation, const Color& color) {
     Renderer::getInstance().drawRect(rect, rotation, color);
 }
 
-void drawTexture(Texture texture, Rect destinationRec, float rotation, Color tint) {
-    Renderer::getInstance().drawTexture(texture, destinationRec, rotation, tint);
+void drawTexture(Texture& texture, const Rect& sourceRec, const Rect& destinationRec, float rotation, const Color& tint) {
+    Renderer::getInstance().drawTexture(texture, sourceRec, destinationRec, rotation, tint);
 }
 
 bool isKeyPressed(Key key) {

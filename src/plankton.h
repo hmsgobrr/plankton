@@ -16,8 +16,8 @@ void prepareFrame();
 void shutdown();
 float getDeltaTime();
 
-void drawRect(Rect rect, float rotation, Color color);
-void drawTexture(Texture texture, Rect destinationRec, float rotation, Color tint);
+void drawRect(const Rect& rect, float rotation, const Color& color);
+void drawTexture(Texture& texture, const Rect& sourceRec, const Rect& destinationRec, float rotation, const Color& tint);
 
 enum class Key {
     NO_KEY              = 0,

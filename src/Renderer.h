@@ -23,18 +23,18 @@ public:
 	void init(GLFWwindow* contextWindow, float frameWidth, float frameHeight);
 	void shutdown();
 
-	void clearFrame(Color color);
-	void drawRect(Rect rect, float rotation, Color color);
-	void drawTexture(Texture texture, Rect destinationRec, float rotation, Color tint);
+	void clearFrame(const Color& color);
+	void drawRect(const Rect& rect, float rotation, const Color& color);
+	void drawTexture(Texture& texture, const Rect& sourceRec, const Rect& destinationRec, float rotation, const Color& tint);
 private:
 	Renderer():
 		m_quadVAO(0),
 		m_quadVBO(0),
 		m_quadIB(0) {}
 
-	void drawQuad(Rect rect, float rotation);
+	void drawQuad(const Rect& rect, float rotation);
 
-	Shader m_shapeShader;
+	Shader m_shader;
 	unsigned int m_quadVAO, m_quadVBO, m_quadIB;
 };
 

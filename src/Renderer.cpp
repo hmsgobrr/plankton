@@ -29,10 +29,10 @@ void Renderer::init(GLFWwindow* contextWindow, float frameWidth, float frameHeig
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    m_shapeShader.create(ASSETS_PATH"shaders/shape.vert", ASSETS_PATH"shaders/shape.frag");
-    m_shapeShader.use();
+    m_shader.create(ASSETS_PATH"shaders/shape.vert", ASSETS_PATH"shaders/shape.frag");
+    m_shader.use();
     glm::mat4 projection = glm::ortho(0.0f, frameWidth, frameHeight, 0.0f, -1.0f, 1.0f);
-    m_shapeShader.setUniform("projection", projection);
+    m_shader.setUniform("projection", projection);
 
     // Init render data
     float vertices[] {
@@ -72,35 +72,43 @@ void Renderer::init(GLFWwindow* contextWindow, float frameWidth, float frameHeig
 }
 
 void Renderer::shutdown() {
-    m_shapeShader.destroy();
+    m_shader.destroy();
     glDeleteVertexArrays(1, &m_quadVAO);
     glDeleteBuffers(1, &m_quadVBO);
+    glDeleteBuffers(1, &m_quadIB);
 }
 
-void Renderer::clearFrame(Color color) {
+void Renderer::clearFrame(const Color& color) {
     glClearColor(color.r, color.g, color.b, color.a);
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Renderer::drawRect(Rect rect, float rotation, Color color) {
-    m_shapeShader.setUniform("useTex", false);
-    m_shapeShader.setUniform("shapeColor", color.r, color.g, color.b, color.a);
+void Renderer::drawRect(const Rect& rect, float rotation, const Color& color) {
+    m_shader.use();
+
+    m_shader.setUniform("useTex", false);
+    m_shader.setUniform("shapeColor", color.r, color.g, color.b, color.a);
 
     drawQuad(rect, rotation);
 }
 
-void Renderer::drawTexture(Texture texture, Rect destinationRec, float rotation, Color tint) {
+void Renderer::drawTexture(Texture& texture, const Rect& sourceRec, const Rect& destinationRec, float rotation, const Color& tint) {
+    m_shader.use();
+
+    glm::mat4 texCoordsTransform(1.0f);
+
+    texCoordsTransform = glm::translate(texCoordsTransform, glm::vec3(sourceRec.x, sourceRec.y, 0.0f));
+    texCoordsTransform = glm::scale(texCoordsTransform, glm::vec3(sourceRec.w, sourceRec.h, 1.0f));
+
+    m_shader.setUniform("useTex", true);
+    m_shader.setUniform("texCoordsTransform", texCoordsTransform);
+    m_shader.setUniform("shapeColor", tint.r, tint.g, tint.b, tint.a);
+
     texture.use();
-
-    m_shapeShader.setUniform("useTex", true);
-    m_shapeShader.setUniform("shapeColor", tint.r, tint.g, tint.b, tint.a);
-
     drawQuad(destinationRec, rotation);
 }
 
-void Renderer::drawQuad(Rect rect, float rotation) {
-    m_shapeShader.use();
-
+void Renderer::drawQuad(const Rect& rect, float rotation) {
     glm::mat4 model(1.0f);
 
     // Move to position
@@ -115,7 +123,7 @@ void Renderer::drawQuad(Rect rect, float rotation) {
 
     // Scale
     model = glm::scale(model, glm::vec3(rect.w, rect.h, 1.0f));
-    m_shapeShader.setUniform("model", model);
+    m_shader.setUniform("model", model);
 
     glBindVertexArray(m_quadVAO);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
