@@ -21,7 +21,7 @@ bool windowShouldClose() {
     return glfwWindowShouldClose(Window::getInstance().getGLFWWindow());
 }
 
-void exitWindow() {
+void closeWindow() {
     glfwSetWindowShouldClose(Window::getInstance().getGLFWWindow(), true);
 }
 
@@ -29,7 +29,7 @@ void clearFrame(Color color) {
     Renderer::getInstance().clearFrame(color);
 }
 
-void displayWindow() {
+void display() {
     glfwSwapBuffers(Window::getInstance().getGLFWWindow());
 }
 

@@ -8,6 +8,7 @@
 
 namespace pt {
 
+// TODO: make it an abstraction for only one kind of shader if plankton in the end only needs one kind of shader
 class Shader {
 public:
     void create(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);

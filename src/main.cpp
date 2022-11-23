@@ -44,7 +44,7 @@ int main(void) {
         }
 
         if (pt::isKeyPressed(pt::Key::KEY_ESCAPE)) {
-            pt::exitWindow();
+            pt::closeWindow();
         }
 
         pt::clearFrame({ 0.1f, 0.1f, 0.1f, 1.0f });
@@ -57,7 +57,7 @@ int main(void) {
             { 1.0f, 1.0f, 1.0f, 1.0f }
         );
 
-        pt::displayWindow();
+        pt::display();
     }
 
     pt::shutdown();
