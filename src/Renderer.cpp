@@ -33,6 +33,7 @@ void Renderer::init(GLFWwindow* contextWindow, float frameWidth, float frameHeig
     m_shader.use();
     glm::mat4 projection = glm::ortho(0.0f, frameWidth, frameHeight, 0.0f, -1.0f, 1.0f);
     m_shader.setUniform("projection", projection);
+    m_shader.setUniform("view", glm::mat4(1.0f));
 
     // Init render data
     float vertices[] {
@@ -81,6 +82,14 @@ void Renderer::shutdown() {
 void Renderer::clearFrame(const Color& color) {
     glClearColor(color.r, color.g, color.b, color.a);
     glClear(GL_COLOR_BUFFER_BIT);
+}
+
+void Renderer::setView(const Camera& camera) {
+    glm::mat4 view(1.0f);
+
+    view = glm::translate(view, glm::vec3(camera.position.x, camera.position.y, 0.0f));
+
+    m_shader.setUniform("view", glm::inverse(view));
 }
 
 void Renderer::drawRect(const Rect& rect, float rotation, const Color& color) {

@@ -9,8 +9,12 @@
 #define COW_ROWS 7
 #define COW_COLS 3
 
+#define CAM_SPEED 100
+
 int main(void) {
     pt::initWindow(SCR_WIDTH, SCR_HEIGHT, "lol");
+
+    pt::Camera camera({ 0.0f, 0.0f }, 0.0f, 0.0f);
 
     pt::Texture polishcow;
     polishcow.createFromFile(ASSETS_PATH"polishcow.png", true);
@@ -33,16 +37,29 @@ int main(void) {
     while (!pt::windowShouldClose()) {
         pt::prepareFrame();
 
+        if (pt::isKeyPressed(pt::Key::KEY_ESCAPE)) {
+            pt::closeWindow();
+        }
+
+        if (pt::isKeyDown(pt::Key::KEY_A)) {
+            camera.position.x -= CAM_SPEED * pt::getDeltaTime();
+        }
+        if (pt::isKeyDown(pt::Key::KEY_D)) {
+            camera.position.x += CAM_SPEED * pt::getDeltaTime();
+        }
+        if (pt::isKeyDown(pt::Key::KEY_W)) {
+            camera.position.y -= CAM_SPEED * pt::getDeltaTime();
+        }
+        if (pt::isKeyDown(pt::Key::KEY_S)) {
+            camera.position.y += CAM_SPEED * pt::getDeltaTime();
+        }
+        
         animationTimeCounter += pt::getDeltaTime();
 
         if (animationTimeCounter >= 1 / 10.0f) { // TODO: sync animation speed with the music
             currentFrame++;
             currentFrame %= 21; // loop it back to 0 if it reaches 21 (max frame)
             animationTimeCounter = 0;
-        }
-
-        if (pt::isKeyPressed(pt::Key::KEY_ESCAPE)) {
-            pt::closeWindow();
         }
 
         pt::clearFrame({ 0.1f, 0.1f, 0.1f, 1.0f });
@@ -55,7 +72,7 @@ int main(void) {
             { 1.0f, 1.0f, 1.0f, 1.0f }
         );
 
-        pt::display();
+        pt::display(camera);
     }
 
     pt::shutdown();

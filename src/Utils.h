@@ -16,6 +16,10 @@ struct Vector2 {
 };
 
 struct Camera {
+	Camera(const Vector2& p_position, float p_scale, float p_rotation):
+		position({ p_position.x, p_position.y }),
+		scale(p_scale),
+		rotation(p_rotation) {}
 	Vector2 position;
 	float scale;
 	float rotation;

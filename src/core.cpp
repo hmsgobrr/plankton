@@ -31,6 +31,7 @@ void display() {
 }
 
 void display(const Camera& camera) {
+    Renderer::getInstance().setView(camera);
     Window::getInstance().display();
 }
 

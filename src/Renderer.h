@@ -24,6 +24,7 @@ public:
 	void shutdown();
 
 	void clearFrame(const Color& color);
+	void setView(const Camera& camera);
 	void drawRect(const Rect& rect, float rotation, const Color& color);
 	void drawTexture(Texture& texture, const Rect& sourceRec, const Rect& destinationRec, float rotation, const Color& tint);
 private:
