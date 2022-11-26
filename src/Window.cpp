@@ -61,6 +61,18 @@ void Window::prepareFrame() {
     glfwPollEvents();
 }
 
+void Window::close() {
+    glfwSetWindowShouldClose(m_glfwWindow, true);
+}
+
+bool Window::shouldClose() {
+    return glfwWindowShouldClose(m_glfwWindow);
+}
+
+void Window::display() {
+    glfwSwapBuffers(m_glfwWindow);
+}
+
 bool Window::isKeyPressed(int key) {
     return !m_lastKeyState[key] && m_currentKeyState[key];
 }

@@ -2,9 +2,6 @@
 #include "Window.h"
 #include "Renderer.h"
 
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
-
 namespace pt {
 
 void initWindow(int windowWidth, int windowHeight, const char* windowTitle) {
@@ -18,19 +15,23 @@ void initWindow(int windowWidth, int windowHeight, const char* windowTitle) {
 }
 
 bool windowShouldClose() {
-    return glfwWindowShouldClose(Window::getInstance().getGLFWWindow());
+    return Window::getInstance().shouldClose();
 }
 
 void closeWindow() {
-    glfwSetWindowShouldClose(Window::getInstance().getGLFWWindow(), true);
+    Window::getInstance().close();
 }
 
-void clearFrame(Color color) {
+void clearFrame(const Color& color) {
     Renderer::getInstance().clearFrame(color);
 }
 
 void display() {
-    glfwSwapBuffers(Window::getInstance().getGLFWWindow());
+    Window::getInstance().display();
+}
+
+void display(const Camera& camera) {
+    Window::getInstance().display();
 }
 
 void prepareFrame() {

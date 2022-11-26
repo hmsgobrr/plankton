@@ -10,8 +10,9 @@ namespace pt {
 void initWindow(int windowWidth, int windowHeight, const char* windowTitle);
 bool windowShouldClose();
 void closeWindow();
-void clearFrame(Color color);
+void clearFrame(const Color& color);
 void display();
+void display(const Camera& camera);
 void prepareFrame();
 void shutdown();
 float getDeltaTime();

@@ -21,14 +21,12 @@ int main(void) {
     pt::Rect frameRects[21];
     for (int i = 0; i < COW_COLS; i++) {
         for (int j = 0; j < COW_ROWS; j++) {
-            int index = j + (i * COW_ROWS);
-            frameRects[index] = {
+            frameRects[j + (i * COW_ROWS)] = {
                 j * (1.0f / (float)COW_ROWS),
                 i * (1.0f / (float)COW_COLS),
                 1.0f / (float)COW_ROWS,
                 1.0f / (float)COW_COLS
             };
-            PT_INFO("[{}]\tX: {}\tY: {}", index, frameRects[index].x, frameRects[index].y);
         }
     }
 

@@ -26,6 +26,9 @@ public:
 
     void init(int windowWidth, int windowHeight, const char* windowTitle);
     void prepareFrame();
+    void close();
+    bool shouldClose();
+    void display();
 
     bool isKeyPressed(int key);
     bool isKeyReleased(int key);

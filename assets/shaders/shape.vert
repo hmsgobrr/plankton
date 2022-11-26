@@ -6,6 +6,7 @@ layout (location = 1) in vec2 vertexTexCoords;
 out vec2 texCoords;
 
 uniform mat4 model;
+//uniform mat4 view;
 uniform mat4 projection;
 
 uniform mat4 texCoordsTransform;

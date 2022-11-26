@@ -11,6 +11,16 @@ struct Rect {
 	float x, y, w, h;
 };
 
+struct Vector2 {
+	float x, y;
+};
+
+struct Camera {
+	Vector2 position;
+	float scale;
+	float rotation;
+};
+
 }
 
 #endif
