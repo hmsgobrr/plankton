@@ -16,12 +16,14 @@ struct Vector2 {
 };
 
 struct Camera {
-	Camera(const Vector2& p_position, float p_scale, float p_rotation):
+	Camera(const Vector2& p_position, const Vector2& p_zoomRotationOrigin, float p_zoom, float p_rotation):
 		position({ p_position.x, p_position.y }),
-		scale(p_scale),
+		zoomRotationOrigin({ p_zoomRotationOrigin.x, p_zoomRotationOrigin.y }),
+		zoom(p_zoom),
 		rotation(p_rotation) {}
 	Vector2 position;
-	float scale;
+	Vector2 zoomRotationOrigin;
+	float zoom;
 	float rotation;
 };
 

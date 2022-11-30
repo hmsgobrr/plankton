@@ -14,7 +14,7 @@
 int main(void) {
     pt::initWindow(SCR_WIDTH, SCR_HEIGHT, "lol");
 
-    pt::Camera camera({ 0.0f, 0.0f }, 0.0f, 0.0f);
+    pt::Camera camera({ 0.0f, 0.0f }, { SCR_WIDTH/2.0f, SCR_HEIGHT/2.0f }, 0.0f, 0.0f);
 
     pt::Texture polishcow;
     polishcow.createFromFile(ASSETS_PATH"polishcow.png", true);
