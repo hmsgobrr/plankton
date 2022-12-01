@@ -87,17 +87,16 @@ void Renderer::clearFrame(const Color& color) {
 void Renderer::setView(const Camera& camera) {
     glm::mat4 view(1.0f);
 
-    // position back from zoom & rotate origin and alse translate by the inverse of camera pos
-    view = glm::translate(view, glm::vec3(
-        camera.zoomRotationOrigin.x - camera.position.x,
-        camera.zoomRotationOrigin.y - camera.position.y,
-        0.0f
-    ));
+    view = glm::translate(view, glm::vec3(-camera.position.x, -camera.position.y, 0.0f));
 
-    view = glm::rotate(view, glm::radians(camera.rotation), glm::vec3(0.0f, 0.0f ,1.0f)); // rotate
+    // position back from zoom & rotate origin
+    view = glm::translate(view, glm::vec3(camera.zoomRotationOrigin.x, camera.zoomRotationOrigin.y, 0.0f));
+
+    view = glm::rotate(view, glm::radians(-camera.rotation), glm::vec3(0.0f, 0.0f ,1.0f)); // rotate
     view = glm::scale(view, glm::vec3(camera.zoom, camera.zoom, 1.0f)); // zoom
 
-    view = glm::translate(view, glm::vec3(camera.zoomRotationOrigin.x, camera.zoomRotationOrigin.y, 0.0f)); // move to origin for zooming & rotating
+    // move to origin for zooming & rotating
+    view = glm::translate(view, glm::vec3(-camera.zoomRotationOrigin.x, -camera.zoomRotationOrigin.y, 0.0f));
 
     m_shader.setUniform("view", view);
 }
