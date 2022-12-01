@@ -87,8 +87,6 @@ void Renderer::clearFrame(const Color& color) {
 void Renderer::setView(const Camera& camera) {
     glm::mat4 view(1.0f);
 
-    view = glm::translate(view, glm::vec3(-camera.position.x, -camera.position.y, 0.0f));
-
     // position back from zoom & rotate origin
     view = glm::translate(view, glm::vec3(camera.zoomRotationOrigin.x, camera.zoomRotationOrigin.y, 0.0f));
 
@@ -97,6 +95,9 @@ void Renderer::setView(const Camera& camera) {
 
     // move to origin for zooming & rotating
     view = glm::translate(view, glm::vec3(-camera.zoomRotationOrigin.x, -camera.zoomRotationOrigin.y, 0.0f));
+
+    // translate to the inverse of cam position
+    view = glm::translate(view, glm::vec3(-camera.position.x, -camera.position.y, 0.0f));
 
     m_shader.setUniform("view", view);
 }

@@ -10,11 +10,12 @@
 #define COW_COLS 3
 
 #define CAM_SPEED 100
+#define CAM_ROT_SPEED 70
 
 int main(void) {
     pt::initWindow(SCR_WIDTH, SCR_HEIGHT, "lol");
 
-    pt::Camera camera({ 0.0f, 0.0f }, { SCR_WIDTH/2.0f, SCR_HEIGHT/2.0f }, 0.0f, 0.0f);
+    pt::Camera camera({ 0.0f, 0.0f }, { SCR_WIDTH/2.0f, SCR_HEIGHT/2.0f }, 1.0f, 0.0f);
 
     pt::Texture polishcow;
     polishcow.createFromFile(ASSETS_PATH"polishcow.png", true);
@@ -52,6 +53,13 @@ int main(void) {
         }
         if (pt::isKeyDown(pt::Key::KEY_S)) {
             camera.position.y += CAM_SPEED * pt::getDeltaTime();
+        }
+
+        if (pt::isKeyDown(pt::Key::KEY_E)) {
+            camera.rotation += CAM_ROT_SPEED * pt::getDeltaTime();
+        }
+        if (pt::isKeyDown(pt::Key::KEY_Q)) {
+            camera.rotation -= CAM_ROT_SPEED * pt::getDeltaTime();
         }
         
         animationTimeCounter += pt::getDeltaTime();
