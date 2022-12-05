@@ -20,7 +20,7 @@ public:
 		return instance;
 	}
 
-	void init(GLFWwindow* contextWindow, float frameWidth, float frameHeight);
+	void init(GLFWwindow* contextWindow, float p_frameWidth, float p_frameHeight);
 	void shutdown();
 
 	void clearFrame(const Color& color);
@@ -31,12 +31,15 @@ private:
 	Renderer():
 		m_quadVAO(0),
 		m_quadVBO(0),
-		m_quadIB(0) {}
+		m_quadIB(0),
+		m_frameWidth(0.0f),
+		m_frameHeight(0.0f) {}
 
 	void drawQuad(const Rect& rect, float rotation);
 
 	Shader m_shader;
 	unsigned int m_quadVAO, m_quadVBO, m_quadIB;
+	float m_frameWidth, m_frameHeight;
 };
 
 }

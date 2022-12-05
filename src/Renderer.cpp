@@ -12,7 +12,7 @@
 
 namespace pt {
 
-void Renderer::init(GLFWwindow* contextWindow, float frameWidth, float frameHeight) {
+void Renderer::init(GLFWwindow* contextWindow, float p_frameWidth, float p_frameHeight) {
     glfwMakeContextCurrent(contextWindow);
 
     // Init GLAD
@@ -31,7 +31,9 @@ void Renderer::init(GLFWwindow* contextWindow, float frameWidth, float frameHeig
 
     m_shader.create(ASSETS_PATH"shaders/shape.vert", ASSETS_PATH"shaders/shape.frag");
     m_shader.use();
-    glm::mat4 projection = glm::ortho(0.0f, frameWidth, frameHeight, 0.0f, -1.0f, 1.0f);
+    m_frameWidth = p_frameWidth;
+    m_frameHeight = p_frameHeight;
+    glm::mat4 projection = glm::ortho(0.0f, m_frameWidth, m_frameHeight, 0.0f, -1.0f, 1.0f);
     m_shader.setUniform("projection", projection);
     m_shader.setUniform("view", glm::mat4(1.0f));
 
@@ -87,25 +89,19 @@ void Renderer::clearFrame(const Color& color) {
 void Renderer::setView(const Camera& camera) {
     glm::mat4 view(1.0f);
 
-    // translate to the inverse of cam position
-    view = glm::translate(view, glm::vec3(-camera.position.x, -camera.position.y, 0.0f));
+    Vector2 zoomRotationOrigin = { m_frameWidth/2.0f, m_frameHeight/2.0f };
 
     // position back from zoom & rotate origin
-    view = glm::translate(view, glm::vec3(
-        camera.zoomRotationOrigin.x - camera.position.x,
-        camera.zoomRotationOrigin.y - camera.position.y,
-        0.0f
-    ));
+    view = glm::translate(view, glm::vec3(zoomRotationOrigin.x, zoomRotationOrigin.y, 0.0f));
 
     view = glm::rotate(view, glm::radians(-camera.rotation), glm::vec3(0.0f, 0.0f ,1.0f)); // rotate
     view = glm::scale(view, glm::vec3(camera.zoom, camera.zoom, 1.0f)); // zoom
 
     // move to origin for zooming & rotating
-    view = glm::translate(view, glm::vec3(
-        -(camera.zoomRotationOrigin.x - camera.position.x),
-        -(camera.zoomRotationOrigin.y - camera.position.y),
-        0.0f
-    ));
+    view = glm::translate(view, glm::vec3(-zoomRotationOrigin.x, -zoomRotationOrigin.y, 0.0f));
+
+    // move object to opposite direction of the camera's movement
+    view = glm::translate(view, glm::vec3(-camera.position.x, -camera.position.y, 0.0f));
 
     m_shader.setUniform("view", view);
 }

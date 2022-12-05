@@ -30,13 +30,12 @@ void display() {
     Window::getInstance().display();
 }
 
-void display(const Camera& camera) {
-    Renderer::getInstance().setView(camera);
-    Window::getInstance().display();
-}
-
 void prepareFrame() {
     Window::getInstance().prepareFrame();
+}
+
+void setView(const Camera& camera) {
+    Renderer::getInstance().setView(camera);
 }
 
 void shutdown() {
@@ -70,6 +69,10 @@ bool isKeyUp(Key key) {
 }
 Key getKeyPressed() {
     return static_cast<Key>(Window::getInstance().getKeyPressed());
+}
+
+Vector2& getMouseWheelMovement() {
+    return Window::getInstance().getMouseWheelMovement();
 }
 
 } // namespace pt

@@ -12,8 +12,8 @@ bool windowShouldClose();
 void closeWindow();
 void clearFrame(const Color& color);
 void display();
-void display(const Camera& camera);
 void prepareFrame();
+void setView(const Camera& camera);
 void shutdown();
 float getDeltaTime();
 
@@ -151,6 +151,11 @@ bool isKeyUp(Key key);          // Check if a key is not being pressed
 // Call multiple time to get the key pressed after (still in the same frame time).
 // Returns NO_KEY if no keys are pressed.
 Key getKeyPressed();
+
+// Returns any movement of the mouse wheel.
+// x: Vertical scrolling movement. Positive = upwards, Negative = downwards.
+// y: Horizontal scrolling movement. Positive = right, Negative = left.
+Vector2& getMouseWheelMovement();
 
 } // namespace pt
 

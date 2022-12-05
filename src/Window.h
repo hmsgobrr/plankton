@@ -4,6 +4,8 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
+#include "Utils.h"
+
 #ifndef PT_MAX_KEYBOARD_KEYS
 #define PT_MAX_KEYBOARD_KEYS 512
 #endif
@@ -35,11 +37,13 @@ public:
     bool isKeyDown(int key);
     bool isKeyUp(int key);
     int getKeyPressed();
+    Vector2& getMouseWheelMovement();
 
     GLFWwindow* getGLFWWindow() { return m_glfwWindow; }
     float getDeltaTime() { return m_deltaTime; }
     void setCurrentKeyState(int key, bool isActive);
     void enqueueKey(int key);
+    void setMouseWheelMovement(float x, float y);
 private:
     Window():
         m_glfwWindow(0),
@@ -48,7 +52,8 @@ private:
         m_currentKeyState(),
         m_lastKeyState(),
         m_pressedKeyQueue(),
-        m_pressedKeyCount(0) {}
+        m_pressedKeyCount(0),
+        m_mouseWheelMovement({ 0.0f, 0.0f }) {}
 
     GLFWwindow* m_glfwWindow;
 
@@ -60,6 +65,8 @@ private:
 
     int m_pressedKeyQueue[PT_MAX_PRESSED_KEY_QUEUE];
     int m_pressedKeyCount;
+
+    Vector2 m_mouseWheelMovement;
 };
 
 } // namespace pt

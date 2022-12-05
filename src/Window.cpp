@@ -4,7 +4,7 @@
 
 namespace pt {
 
-static void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods) {
+static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
     if (key < 0) return; // In case key that generates -1 or lower like MacOS fn key gets pressed
 
     if (action == GLFW_RELEASE) {
@@ -14,6 +14,10 @@ static void keyCallback(GLFWwindow *window, int key, int scancode, int action, i
     
     Window::getInstance().setCurrentKeyState(key, true);
     Window::getInstance().enqueueKey(key);
+}
+
+static void scrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
+    Window::getInstance().setMouseWheelMovement(xoffset, yoffset);
 }
 
 void Window::init(int windowWidth, int windowHeight, const char* windowTitle) {
@@ -39,6 +43,7 @@ void Window::init(int windowWidth, int windowHeight, const char* windowTitle) {
     }
     glfwSetWindowAttrib(m_glfwWindow, GLFW_RESIZABLE, GLFW_FALSE);
     glfwSetKeyCallback(m_glfwWindow, keyCallback);
+    glfwSetScrollCallback(m_glfwWindow, scrollCallback);
 }
 
 void Window::prepareFrame() {
@@ -57,6 +62,10 @@ void Window::prepareFrame() {
         m_pressedKeyQueue[i] = 0;
     }
     m_pressedKeyCount = 0;
+
+    // reset mouse wheel movement value
+    m_mouseWheelMovement.x = 0.0f;
+    m_mouseWheelMovement.y = 0.0f;
 
     glfwPollEvents();
 }
@@ -99,6 +108,10 @@ int Window::getKeyPressed() {
     return key;
 }
 
+Vector2& Window::getMouseWheelMovement() {
+    return m_mouseWheelMovement;
+}
+
 void Window::setCurrentKeyState(int key, bool isActive) {
     if (key >= PT_MAX_KEYBOARD_KEYS) return;
     m_currentKeyState[key] = isActive;
@@ -107,6 +120,11 @@ void Window::setCurrentKeyState(int key, bool isActive) {
 void Window::enqueueKey(int key) {
     m_pressedKeyQueue[m_pressedKeyCount] = key;
     m_pressedKeyCount++;
+}
+
+void Window::setMouseWheelMovement(float x, float y) {
+    m_mouseWheelMovement.x = x;
+    m_mouseWheelMovement.y = y;
 }
 
 } // namespace pt
