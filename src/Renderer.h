@@ -9,7 +9,7 @@
 
 namespace pt {
 
-// Wrapper class for OpenGL rendering, meant to be used only from main api (plankton.h) not directly
+// Wrapper class for OpenGL rendering, meant to be used only from main api (plankton.h) not directly.
 class Renderer {
 public:
 	// Singleton stuff

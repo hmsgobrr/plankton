@@ -21,7 +21,7 @@ struct Vector2 {
 	float x, y;
 };
 
-/// Struct for representing a camera viewpoint
+/// Struct for representing a camera viewpoint.
 struct Camera {
 	Camera(const Vector2& p_position, float p_zoom, float p_rotation):
 		position({ p_position.x, p_position.y }),
@@ -156,26 +156,27 @@ enum class Key {
     KEY_KP_EQUAL        = 336
 };
 
-/// Initialize window
+/// Initialize window.
 void initWindow(int windowWidth, int windowHeight, const char* windowTitle);
-/// Returns true if window should be closed at that time
+/// Returns true if window should be closed at that time.
 bool windowShouldClose();
-/// Sets windowShould close value to true which results in exiting the game loop after the current frame
+/// Sets windowShould close value to true which results in exiting the game loop after the current frame.
 void closeWindow();
-/// Resets the frame with the specified color as a background
+/// Resets the frame with the specified color as a background.
 void clearFrame(const Color& color);
-/// Displays the frame that has been drawn
+/// Displays the frame that has been drawn.
 void display();
-/// Updates states and other variables, call this before doing other stuff on a frame
+/// Updates states and other variables, call this before doing other stuff on a frame.
 void prepareFrame();
-/// Sets the viewpoint of the game world to the camera specified
+/// Sets the viewpoint of the game world to the camera specified.
 void setView(const Camera& camera);
-/// Closes the window and unloads OpenGL context
+/// Closes the window and unloads OpenGL context.
 void shutdown();
 
-/// Returns seconds since last frame has drawn
+/// Returns seconds since last frame has drawn.
 float getDeltaTime();
-//int getRandomValue(int min, int max);   // Returns random value between min and max (min & max included)
+/// Return a random value between min and max (min and max included).
+int getRandomValue(int min, int max);
 
 /**
  * Draws a rectangle on the frame.

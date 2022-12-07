@@ -7,6 +7,7 @@
 
 namespace pt {
 
+/// Class for logging.
 class Log {
 public:
     static void init();

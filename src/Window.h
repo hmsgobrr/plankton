@@ -16,7 +16,7 @@
 
 namespace pt {
 
-// Wrapper class for GLFW functions, meant to be used only from main api (plankton.h) not directly
+// Wrapper class for GLFW functions, meant to be used only from main api (plankton.h) not directly.
 class Window {
 public:
     // Singleton stuff
