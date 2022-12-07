@@ -7,19 +7,7 @@
 
 namespace pt {
 
-void initWindow(int windowWidth, int windowHeight, const char* windowTitle);
-bool windowShouldClose();
-void closeWindow();
-void clearFrame(const Color& color);
-void display();
-void prepareFrame();
-void setView(const Camera& camera);
-void shutdown();
-float getDeltaTime();
-
-void drawRect(const Rect& rect, float rotation, const Color& color);
-void drawTexture(Texture& texture, const Rect& sourceRec, const Rect& destinationRec, float rotation, const Color& tint);
-
+/// Keyboard key enums, refers to a glfw keycodes that represents a keyboard key.
 enum class Key {
     NO_KEY              = 0,
     KEY_SPACE           = 32,
@@ -143,18 +131,63 @@ enum class Key {
     KEY_KP_EQUAL        = 336
 };
 
-bool isKeyPressed(Key key);     // Check if a key has been pressed once
-bool isKeyReleased(Key key);    // Check if a key has been released once
-bool isKeyDown(Key key);        // Check if a key is being pressed
-bool isKeyUp(Key key);          // Check if a key is not being pressed
-// Return keys pressed at the time.
-// Call multiple time to get the key pressed after (still in the same frame time).
-// Returns NO_KEY if no keys are pressed.
+/// Initialize window
+void initWindow(int windowWidth, int windowHeight, const char* windowTitle);
+/// Returns true if window should be closed at that time
+bool windowShouldClose();
+/// Sets windowShould close value to true which results in exiting the game loop after the current frame
+void closeWindow();
+/// Resets the frame with the specified color as a background
+void clearFrame(const Color& color);
+/// Displays the frame that has been drawn
+void display();
+/// Updates states and other variables, call this before doing other stuff on a frame
+void prepareFrame();
+/// Sets the viewpoint of the game world to the camera specified
+void setView(const Camera& camera);
+/// Closes the window and unloads OpenGL context
+void shutdown();
+
+/// Returns seconds since last frame has drawn
+float getDeltaTime();
+//int getRandomValue(int min, int max);   // Returns random value between min and max (min & max included)
+
+/**
+ * Draws a rectangle on the frame.
+ * 
+ * @param rect      The size and position of the rectangle.
+ * @param rotation  The rotation of the rectangle.
+ * @param color     The color of the rectangle.
+ */
+void drawRect(const Rect& rect, float rotation, const Color& color);
+
+/**
+ * Draws an image texture on the frame.
+ * 
+ * @param texture           The texture object to draw.
+ * @param sourceRec         The part of the image to draw.
+ * @param destinationRec    The size and position of the texture. A negative width/height value will flip the texture.
+ * @param rotation          The rotation of the texture.
+ * @param tint              The color to tint the resulting texture. Use a white color if you don't need tinting.
+ */
+void drawTexture(Texture& texture, const Rect& sourceRec, const Rect& destinationRec, float rotation, const Color& tint);
+
+bool isKeyPressed(Key key);     /// Check if a key has been pressed once
+bool isKeyReleased(Key key);    /// Check if a key has been released once
+bool isKeyDown(Key key);        /// Check if a key is being pressed
+bool isKeyUp(Key key);          /// Check if a key is not being pressed
+/**
+ * @brief Return keys pressed at the time.
+ * Call multiple time to get the key pressed after (still in the same frame time).
+ * Returns NO_KEY if no keys are pressed.
+ */
 Key getKeyPressed();
 
-// Returns any movement of the mouse wheel.
-// x: Vertical scrolling movement. Positive = upwards, Negative = downwards.
-// y: Horizontal scrolling movement. Positive = right, Negative = left.
+/**
+ * @brief Returns any movement of the mouse wheel.
+ * x: Vertical scrolling movement. Positive = upwards, Negative = downwards.
+ * y: Horizontal scrolling movement. Positive = right, Negative = left.
+ */
 Vector2& getMouseWheelMovement();
 
 } // namespace pt
