@@ -198,7 +198,7 @@ void Renderer::drawTexture(Texture& texture, const Rect& sourceRec, const Rect& 
     glm::mat4 texCoordsTransform(1.0f);
 
     texCoordsTransform = glm::translate(texCoordsTransform, glm::vec3(sourceRec.x, sourceRec.y, 0.0f));
-    texCoordsTransform = glm::scale(texCoordsTransform, glm::vec3(sourceRec.w, sourceRec.h, 1.0f));
+    texCoordsTransform = glm::scale(texCoordsTransform, glm::vec3(sourceRec.width, sourceRec.height, 1.0f));
 
     m_shader.setUniform("useTex", true);
     m_shader.setUniform("texCoordsTransform", texCoordsTransform);
@@ -216,13 +216,13 @@ void Renderer::drawQuad(const Rect& rect, float rotation) {
 
     if (rotation != 0.0f) {
         // Rotate
-        model = glm::translate(model, glm::vec3(0.5f * rect.w, 0.5f * rect.h, 0.0f)); // move origin of rotation to center of quad
+        model = glm::translate(model, glm::vec3(0.5f * rect.width, 0.5f * rect.height, 0.0f)); // move origin of rotation to center of quad
         model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f)); // then rotate
-        model = glm::translate(model, glm::vec3(-0.5f * rect.w, -0.5f * rect.h, 0.0f)); // move origin back
+        model = glm::translate(model, glm::vec3(-0.5f * rect.width, -0.5f * rect.height, 0.0f)); // move origin back
     }
 
     // Scale
-    model = glm::scale(model, glm::vec3(rect.w, rect.h, 1.0f));
+    model = glm::scale(model, glm::vec3(rect.width, rect.height, 1.0f));
     m_shader.setUniform("model", model);
 
     glBindVertexArray(m_quadVAO);

@@ -5,6 +5,9 @@
 
 namespace pt {
 
+/**
+* Texture class for representing an image texture that can be drawn.
+*/
 class Texture {
 public:
 	Texture();

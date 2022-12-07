@@ -4,12 +4,12 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
+#include "plankton.h"
 #include "Shader.h"
-#include "Utils.h"
-#include "Texture.h"
 
 namespace pt {
 
+// Wrapper class for OpenGL rendering, meant to be used only from main api (plankton.h) not directly
 class Renderer {
 public:
 	// Singleton stuff
@@ -21,7 +21,7 @@ public:
 	}
 
 	void init(GLFWwindow* contextWindow, float p_frameWidth, float p_frameHeight);
-	void shutdown();
+	void shutdown(); // Destroy buffers and shaders.
 
 	void clearFrame(const Color& color);
 	void setView(const Camera& camera);

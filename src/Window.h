@@ -4,7 +4,7 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
-#include "Utils.h"
+#include "plankton.h"
 
 #ifndef PT_MAX_KEYBOARD_KEYS
 #define PT_MAX_KEYBOARD_KEYS 512
@@ -16,6 +16,7 @@
 
 namespace pt {
 
+// Wrapper class for GLFW functions, meant to be used only from main api (plankton.h) not directly
 class Window {
 public:
     // Singleton stuff

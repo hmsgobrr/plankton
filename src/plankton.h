@@ -2,10 +2,35 @@
 #define PLANKTON_H
 
 #include "Log.h"
-#include "Utils.h"
 #include "Texture.h"
 
 namespace pt {
+
+/// Struct for representing a color. Uses a RGBA format.
+struct Color {
+	float r, g, b, a;
+};
+
+/// Struct for representing a rectangle.
+struct Rect {
+	float x, y, width, height;
+};
+
+/// A 2D Vector struct
+struct Vector2 {
+	float x, y;
+};
+
+/// Struct for representing a camera viewpoint
+struct Camera {
+	Camera(const Vector2& p_position, float p_zoom, float p_rotation):
+		position({ p_position.x, p_position.y }),
+		zoom(p_zoom),
+		rotation(p_rotation) {}
+	Vector2 position;
+	float zoom;
+	float rotation;
+};
 
 /// Keyboard key enums, refers to a glfw keycodes that represents a keyboard key.
 enum class Key {
