@@ -175,8 +175,8 @@ void shutdown();
 
 /// Returns seconds since last frame has drawn.
 float getDeltaTime();
-/// Return a random value between min and max (min and max included).
-int getRandomValue(int min, int max);
+/// Return a random number between min and max (min and max included).
+int getRandomNumber(int min, int max);
 
 /**
  * Draws a rectangle on the frame.

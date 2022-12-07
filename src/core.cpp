@@ -2,9 +2,12 @@
 #include "Window.h"
 #include "Renderer.h"
 
+#include <cstdlib>  // for rand(), srand(), and abs()
+#include <ctime>    // for time()
+
 namespace pt {
 
-void initWindow(int windowWidth, int windowHeight, const char* windowTitle) {
+void initWindow(int windowWidth, int windowHeight, const char* windowTitle) { // todo srand
     Log::init();
     Window::getInstance().init(windowWidth, windowHeight, windowTitle);
     Renderer::getInstance().init(
@@ -12,6 +15,7 @@ void initWindow(int windowWidth, int windowHeight, const char* windowTitle) {
         static_cast<float>(windowWidth),
         static_cast<float>(windowHeight)
     );
+    srand((unsigned int)time(NULL));
 }
 
 bool windowShouldClose() {
@@ -45,6 +49,21 @@ void shutdown() {
 
 float getDeltaTime() {
     return Window::getInstance().getDeltaTime();
+}
+
+int getRandomNumber(int min, int max) {
+    // Swap min and max if min is actually bigger than max
+    if (min > max) {
+        int tmp = max;
+        max = min;
+        min = tmp;
+    }
+
+    if ((unsigned int)(max - min) > (unsigned int)RAND_MAX) {
+        PT_CORE_WARN("pt::GetRandomNumber range cannot be higher than {}", RAND_MAX);
+    }
+
+    return (rand() % (abs(max - min) + 1) + min);
 }
 
 void drawRect(const Rect& rect, float rotation, const Color& color) {

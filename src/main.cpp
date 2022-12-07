@@ -43,6 +43,8 @@ int main(void) {
             pt::closeWindow();
         }
 
+        PT_INFO("Random number 5-10: {}", pt::getRandomNumber(5, 10));
+
         if (pt::isKeyDown(pt::Key::KEY_A)) camera.position.x -= CAM_SPEED * pt::getDeltaTime();
         if (pt::isKeyDown(pt::Key::KEY_D)) camera.position.x += CAM_SPEED * pt::getDeltaTime();
         if (pt::isKeyDown(pt::Key::KEY_W)) camera.position.y -= CAM_SPEED * pt::getDeltaTime();
