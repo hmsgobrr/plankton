@@ -216,6 +216,16 @@ Key getKeyPressed();
  */
 Vector2& getMouseWheelMovement();
 
+/**
+* Generates a 2D perlin noise.
+* Just ignore the y if you want a 1D noise.
+* 
+* @param x The sample point in x-axis.
+* @param y The sample point in y-axis.
+* @param seed A value between 0.0 and 1.0 that will be used as a seed for the noise.
+*/
+double perlinNoise(double x, double y, double seed);
+
 } // namespace pt
 
 #endif // PLANKTON_H
