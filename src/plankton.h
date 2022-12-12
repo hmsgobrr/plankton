@@ -175,6 +175,8 @@ void shutdown();
 
 /// Returns seconds since last frame has drawn.
 float getDeltaTime();
+/// Returns seconds since window has been created.
+double getTime();
 /// Return a random number between min and max (min and max included).
 int getRandomNumber(int min, int max);
 
@@ -219,10 +221,12 @@ Vector2& getMouseWheelMovement();
 /**
 * Generates a 2D perlin noise.
 * Just ignore the y if you want a 1D noise.
+* (might be buggy)
 * 
 * @param x The sample point in x-axis.
 * @param y The sample point in y-axis.
 * @param seed A value between 0.0 and 1.0 that will be used as a seed for the noise.
+* @return A value between -1 and 1 representing the specified point.
 */
 double perlinNoise(double x, double y, double seed);
 

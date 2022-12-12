@@ -43,8 +43,6 @@ int main(void) {
             pt::closeWindow();
         }
 
-        PT_INFO("Random number 5-10: {}", pt::getRandomNumber(5, 10));
-
         if (pt::isKeyDown(pt::Key::KEY_A)) camera.position.x -= CAM_SPEED * pt::getDeltaTime();
         if (pt::isKeyDown(pt::Key::KEY_D)) camera.position.x += CAM_SPEED * pt::getDeltaTime();
         if (pt::isKeyDown(pt::Key::KEY_W)) camera.position.y -= CAM_SPEED * pt::getDeltaTime();
@@ -65,11 +63,15 @@ int main(void) {
             animationTimeCounter = 0;
         }
 
+        float perlin = pt::perlinNoise(pt::getTime(), 1.0, 0.1);
+        PT_INFO("PerlinNoise: {}", perlin);
+        float x = (perlin * SCR_WIDTH) + SCR_WIDTH/2 - COW_WIDTH / 2;
+
         pt::clearFrame({ 0.1f, 0.1f, 0.1f, 1.0f });
         pt::drawTexture(
             polishcow,
             frameRects[currentFrame],
-            { SCR_WIDTH / 2 - COW_WIDTH / 2, SCR_HEIGHT / 2 - COW_HEIGHT / 2, COW_WIDTH, COW_HEIGHT },
+            { x, SCR_HEIGHT / 2 - COW_HEIGHT / 2, COW_WIDTH, COW_HEIGHT },
             0.0f,
             { 1.0f, 1.0f, 1.0f, 1.0f }
         );

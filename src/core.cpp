@@ -51,6 +51,10 @@ float getDeltaTime() {
     return Window::getInstance().getDeltaTime();
 }
 
+double getTime() {
+    return glfwGetTime();
+}
+
 int getRandomNumber(int min, int max) {
     // Swap min and max if min is actually bigger than max
     if (min > max) {
