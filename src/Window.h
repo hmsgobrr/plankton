@@ -14,6 +14,10 @@
 #define PT_MAX_PRESSED_KEY_QUEUE 16
 #endif
 
+#ifndef PT_MAX_MOUSE_BUTTON_COUNT
+#define PT_MAX_MOUSE_BUTTON_COUNT 3
+#endif
+
 namespace pt {
 
 // Wrapper class for GLFW functions, meant to be used only from main api (plankton.h) not directly.
@@ -38,21 +42,28 @@ public:
     bool isKeyDown(int key);
     bool isKeyUp(int key);
     int getKeyPressed();
+ 
+    bool isMouseButtonPressed(int button);
+    bool isMouseButtonReleased(int button);
+    bool isMouseButtonDown(int button);
+    bool isMouseButtonUp(int button);
+    Vector2& getMousePosition();
     Vector2& getMouseWheelMovement();
 
     GLFWwindow* getGLFWWindow() { return m_glfwWindow; }
+
     float getDeltaTime() { return m_deltaTime; }
+
     void setCurrentKeyState(int key, bool isActive);
     void enqueueKey(int key);
+    void setCurrentMouseButtonState(int button, bool isActive);
+    void setMouseCursorPos(float mouseX, float mouseY);
     void setMouseWheelMovement(float x, float y);
 private:
     Window():
         m_glfwWindow(0),
         m_lastFrameTime(0.0f),
         m_deltaTime(0.0f),
-        m_currentKeyState(),
-        m_lastKeyState(),
-        m_pressedKeyQueue(),
         m_pressedKeyCount(0),
         m_mouseWheelMovement({ 0.0f, 0.0f }) {}
 
@@ -67,6 +78,9 @@ private:
     int m_pressedKeyQueue[PT_MAX_PRESSED_KEY_QUEUE];
     int m_pressedKeyCount;
 
+    bool m_currentMouseButtonState[PT_MAX_MOUSE_BUTTON_COUNT];
+    bool m_lastMouseButtonState[PT_MAX_MOUSE_BUTTON_COUNT];
+    Vector2 m_mouseCursorPos;
     Vector2 m_mouseWheelMovement;
 };
 

@@ -16,6 +16,21 @@ static void keyCallback(GLFWwindow* window, int key, int scancode, int action, i
     Window::getInstance().enqueueKey(key);
 }
 
+static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
+    if (button < 0) return;
+
+    if (action == GLFW_RELEASE) {
+        Window::getInstance().setCurrentMouseButtonState(button, false);
+        return;
+    }
+
+    Window::getInstance().setCurrentMouseButtonState(button, true);
+}
+
+static void mouseCursorPosCallback(GLFWwindow* window, double xpos, double ypos) {
+    Window::getInstance().setMouseCursorPos((float)xpos, (float)ypos);
+}
+
 static void scrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
     Window::getInstance().setMouseWheelMovement(xoffset, yoffset);
 }
@@ -43,6 +58,8 @@ void Window::init(int windowWidth, int windowHeight, const char* windowTitle) {
     }
     glfwSetWindowAttrib(m_glfwWindow, GLFW_RESIZABLE, GLFW_FALSE);
     glfwSetKeyCallback(m_glfwWindow, keyCallback);
+    glfwSetMouseButtonCallback(m_glfwWindow, mouseButtonCallback);
+    glfwSetCursorPosCallback(m_glfwWindow, mouseCursorPosCallback);
     glfwSetScrollCallback(m_glfwWindow, scrollCallback);
 }
 
@@ -62,6 +79,11 @@ void Window::prepareFrame() {
         m_pressedKeyQueue[i] = 0;
     }
     m_pressedKeyCount = 0;
+
+    // save last mouse button state
+    for (int i = 0; i < PT_MAX_MOUSE_BUTTON_COUNT; i++) {
+        m_lastMouseButtonState[i] = m_currentMouseButtonState[i];
+    }
 
     // reset mouse wheel movement value
     m_mouseWheelMovement.x = 0.0f;
@@ -108,6 +130,21 @@ int Window::getKeyPressed() {
     return key;
 }
 
+bool Window::isMouseButtonPressed(int button) {
+    return !m_lastMouseButtonState[button] && m_currentMouseButtonState[button];
+}
+bool Window::isMouseButtonReleased(int button) {
+    return m_lastMouseButtonState[button] && !m_currentMouseButtonState[button];
+}
+bool Window::isMouseButtonDown(int button) {
+    return m_currentMouseButtonState[button];
+}
+bool Window::isMouseButtonUp(int button) {
+    return !m_currentMouseButtonState[button];
+}
+Vector2& Window::getMousePosition() {
+    return m_mouseCursorPos;
+}
 Vector2& Window::getMouseWheelMovement() {
     return m_mouseWheelMovement;
 }
@@ -120,6 +157,16 @@ void Window::setCurrentKeyState(int key, bool isActive) {
 void Window::enqueueKey(int key) {
     m_pressedKeyQueue[m_pressedKeyCount] = key;
     m_pressedKeyCount++;
+}
+
+void Window::setCurrentMouseButtonState(int button, bool isActive) {
+    if (button >= PT_MAX_MOUSE_BUTTON_COUNT) return;
+    m_currentMouseButtonState[button] = isActive;
+}
+
+void Window::setMouseCursorPos(float mouseX, float mouseY) {
+    m_mouseCursorPos.x = mouseX;
+    m_mouseCursorPos.y = mouseY;
 }
 
 void Window::setMouseWheelMovement(float x, float y) {

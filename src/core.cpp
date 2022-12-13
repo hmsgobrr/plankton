@@ -94,6 +94,21 @@ Key getKeyPressed() {
     return static_cast<Key>(Window::getInstance().getKeyPressed());
 }
 
+bool isMouseButtonPressed(MouseButton button) {
+    return Window::getInstance().isMouseButtonPressed(static_cast<int>(button));
+}
+bool isMouseButtonReleased(MouseButton button) {
+    return Window::getInstance().isMouseButtonReleased(static_cast<int>(button));
+}
+bool isMouseButtonDown(MouseButton button) {
+    return Window::getInstance().isMouseButtonDown(static_cast<int>(button));
+}
+bool isMouseButtonUp(MouseButton button) {
+    return Window::getInstance().isMouseButtonUp(static_cast<int>(button));
+}
+Vector2& getMousePosition() {
+    return Window::getInstance().getMousePosition();
+}
 Vector2& getMouseWheelMovement() {
     return Window::getInstance().getMouseWheelMovement();
 }

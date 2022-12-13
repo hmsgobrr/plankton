@@ -156,6 +156,13 @@ enum class Key {
     KEY_KP_EQUAL        = 336
 };
 
+/// Mouse Buttons enums, refers to the clickable buttons on the mouse.
+enum class MouseButton {
+    MOUSE_BUTTON_LEFT   = 0,
+    MOUSE_BUTTON_RIGHT  = 1,
+    MOUSE_BUTTON_MIDDLE = 2
+};
+
 /// Initialize window.
 void initWindow(int windowWidth, int windowHeight, const char* windowTitle);
 /// Returns true if window should be closed at that time.
@@ -200,10 +207,10 @@ void drawRect(const Rect& rect, float rotation, const Color& color);
  */
 void drawTexture(Texture& texture, const Rect& sourceRec, const Rect& destinationRec, float rotation, const Color& tint);
 
-bool isKeyPressed(Key key);     /// Check if a key has been pressed once
-bool isKeyReleased(Key key);    /// Check if a key has been released once
-bool isKeyDown(Key key);        /// Check if a key is being pressed
-bool isKeyUp(Key key);          /// Check if a key is not being pressed
+bool isKeyPressed(Key key);     /// Check if a key has been pressed once.
+bool isKeyReleased(Key key);    /// Check if a key has been released once.
+bool isKeyDown(Key key);        /// Check if a key is being pressed.
+bool isKeyUp(Key key);          /// Check if a key is not being pressed.
 /**
  * @brief Return keys pressed at the time.
  * Call multiple time to get the key pressed after (still in the same frame time).
@@ -211,10 +218,15 @@ bool isKeyUp(Key key);          /// Check if a key is not being pressed
  */
 Key getKeyPressed();
 
+bool isMouseButtonPressed(MouseButton button);  /// Check if a key has been pressed once.
+bool isMouseButtonReleased(MouseButton button); /// Check if a key has been released once.
+bool isMouseButtonDown(MouseButton button);     /// Check if a key is being pressed.
+bool isMouseButtonUp(MouseButton button);       /// Check if a key is not being pressed.
+Vector2& getMousePosition();                    /// Returns the current mouse cursor position.
 /**
  * @brief Returns any movement of the mouse wheel.
- * x: Vertical scrolling movement. Positive = upwards, Negative = downwards.
- * y: Horizontal scrolling movement. Positive = right, Negative = left.
+ * The returning x from the Vector2 shows the vertical movement, Positive means upwards, Negative means downwards.
+ * Whereas the y shows the horizontal movement, Positive means right, Negative means left.
  */
 Vector2& getMouseWheelMovement();
 
@@ -223,10 +235,12 @@ Vector2& getMouseWheelMovement();
 * Just ignore the y if you want a 1D noise.
 * (might be buggy)
 * 
-* @param x The sample point in x-axis.
-* @param y The sample point in y-axis.
-* @param seed A value between 0.0 and 1.0 that will be used as a seed for the noise.
-* @return A value between -1 and 1 representing the specified point.
+* This function is defined at PerlinNoise.cpp.
+* 
+* @param x      The sample point in x-axis.
+* @param y      The sample point in y-axis.
+* @param seed   A value between 0.0 and 1.0 that will be used as a seed for the noise.
+* @return       A value between -1 and 1 representing the specified point.
 */
 double perlinNoise(double x, double y, double seed);
 

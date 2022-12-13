@@ -63,15 +63,25 @@ int main(void) {
             animationTimeCounter = 0;
         }
 
-        float perlin = pt::perlinNoise(pt::getTime(), 1.0, 0.1);
-        PT_INFO("PerlinNoise: {}", perlin);
-        float x = (perlin * SCR_WIDTH) + SCR_WIDTH/2 - COW_WIDTH / 2;
+        pt::Vector2 mousepos = pt::getMousePosition();
+
+        PT_INFO(
+            "LEFT: {} {}\tRIGHT: {} {}\tMID: {} {}",
+            pt::isMouseButtonDown(pt::MouseButton::MOUSE_BUTTON_LEFT) ? 1 : 0,
+            pt::isMouseButtonPressed(pt::MouseButton::MOUSE_BUTTON_LEFT) ? "X" : (pt::isMouseButtonReleased(pt::MouseButton::MOUSE_BUTTON_LEFT) ? "O" : ""),
+
+            pt::isMouseButtonDown(pt::MouseButton::MOUSE_BUTTON_RIGHT) ? 1 : 0,
+            pt::isMouseButtonPressed(pt::MouseButton::MOUSE_BUTTON_RIGHT) ? "X" : (pt::isMouseButtonReleased(pt::MouseButton::MOUSE_BUTTON_RIGHT) ? "O" : ""),
+
+            pt::isMouseButtonDown(pt::MouseButton::MOUSE_BUTTON_MIDDLE) ? 1 : 0,
+            pt::isMouseButtonPressed(pt::MouseButton::MOUSE_BUTTON_MIDDLE) ? "X" : (pt::isMouseButtonReleased(pt::MouseButton::MOUSE_BUTTON_MIDDLE) ? "O" : "")
+        );
 
         pt::clearFrame({ 0.1f, 0.1f, 0.1f, 1.0f });
         pt::drawTexture(
             polishcow,
             frameRects[currentFrame],
-            { x, SCR_HEIGHT / 2 - COW_HEIGHT / 2, COW_WIDTH, COW_HEIGHT },
+            { mousepos.x - COW_WIDTH/2, mousepos.y - COW_HEIGHT / 2, COW_WIDTH, COW_HEIGHT },
             0.0f,
             { 1.0f, 1.0f, 1.0f, 1.0f }
         );
