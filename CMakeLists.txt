@@ -12,7 +12,7 @@ file(GLOB ASSETS
 	"assets/*.jpg"
 )
 
-add_executable(${PROJECT_NAME} ${SOURCE} ${ASSETS})
+add_library(${PROJECT_NAME} ${SOURCE} ${ASSETS})
 # target_compile_definitions(${PROJECT_NAME} PUBLIC DEBUG)
 
 # glad
