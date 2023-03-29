@@ -12,5 +12,6 @@ To use this library, if you use cmake you can add this repo to your project as a
 
 add_subdirectory(path/to/plankton)
 target_link_libraries(${PROJECT_NAME} plankton)
-target_include_directories(${PROJECT_NAME} PRIVATE path/to/plankton/include)
+target_include_directories(${PROJECT_NAME} PRIVATE path/to/plankton/include path/to/plankton/vendor/spdlog)
 ```
+Note that this project uses a third-party library, [spdlog](https://github.com/gabime/spdlog) for logging.

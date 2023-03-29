@@ -2,7 +2,6 @@
 #define PLANKTON_H
 
 #include "pt/Texture.h"
-#include "pt/Log.h"
 
 namespace pt {
 
