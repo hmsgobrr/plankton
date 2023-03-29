@@ -1,6 +1,9 @@
 # Plankton
 A small OpenGL game library made for educational purposes.\
-![screenshot](ss.png)\
+\
+![prev](prev.gif)\
+(An [example app](https://github.com/hmsgobrr/planktest) using this library)\
+\
 This project is in early development stage.\
 \
 Since I'm still new to OpenGL, this library probably won't be as efficient as other.
