@@ -252,36 +252,6 @@ Vector2& getMouseWheelMovement();
 */
 double perlinNoise(double x, double y, double seed);
 
-/// Log a trace message to console, see https://github.com/gabime/spdlog for docs.
-template<typename... Args>
-void logTrace(Args... args) {
-    Log::getClientLogger()->trace(args...);
-}
-
-/// Log a message to console, see https://github.com/gabime/spdlog for docs.
-template<typename... Args>
-void logInfo(Args... args) {
-    Log::getClientLogger()->info(args...);
-}
-
-/// Log a warning message to console, see https://github.com/gabime/spdlog for docs.
-template<typename... Args>
-void logWarn(Args... args) {
-    Log::getClientLogger()->warn(args...);
-}
-
-/// Log an error message to console, see https://github.com/gabime/spdlog for docs.
-template<typename... Args>
-void logError(Args... args) {
-    Log::getClientLogger()->error(args...);
-}
-
-/// Log a critical error message to console, see https://github.com/gabime/spdlog for docs.
-template<typename... Args>
-void logCritical(Args... args) {
-    Log::getClientLogger()->critical(args...);
-}
-
 } // namespace pt
 
 #endif // PLANKTON_H
