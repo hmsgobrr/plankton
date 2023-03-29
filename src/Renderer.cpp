@@ -7,8 +7,8 @@
 
 #include "Log.h"
 
-#ifndef ASSETS_PATH
-#define ASSETS_PATH "../assets/"
+#ifndef SHADERS_PATH
+#define SHADERS_PATH "../shaders/"
 #endif
 
 namespace pt {
@@ -106,7 +106,7 @@ void Renderer::init(GLFWwindow* contextWindow, float p_frameWidth, float p_frame
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    m_shader.create(ASSETS_PATH"shaders/shape.vert", ASSETS_PATH"shaders/shape.frag");
+    m_shader.create(SHADERS_PATH"shape.vert", SHADERS_PATH"shape.frag");
     m_shader.use();
     m_frameWidth = p_frameWidth;
     m_frameHeight = p_frameHeight;

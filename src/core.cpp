@@ -1,6 +1,7 @@
 #include "plankton.h"
 #include "Window.h"
 #include "Renderer.h"
+#include "Log.h"
 
 #include <cstdlib>  // for rand(), srand(), and abs()
 #include <ctime>    // for time()

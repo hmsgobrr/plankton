@@ -1,7 +1,6 @@
 #ifndef PLANKTON_H
 #define PLANKTON_H
 
-#include "Log.h"
 #include "Texture.h"
 
 namespace pt {
@@ -207,10 +206,14 @@ void drawRect(const Rect& rect, float rotation, const Color& color);
  */
 void drawTexture(Texture& texture, const Rect& sourceRec, const Rect& destinationRec, float rotation, const Color& tint);
 
-bool isKeyPressed(Key key);     /// Check if a key has been pressed once.
-bool isKeyReleased(Key key);    /// Check if a key has been released once.
-bool isKeyDown(Key key);        /// Check if a key is being pressed.
-bool isKeyUp(Key key);          /// Check if a key is not being pressed.
+/// Check if a key has been pressed once.
+bool isKeyPressed(Key key);
+/// Check if a key has been released once.
+bool isKeyReleased(Key key);
+/// Check if a key is being pressed.
+bool isKeyDown(Key key);
+/// Check if a key is not being pressed.
+bool isKeyUp(Key key);
 /**
  * @brief Return keys pressed at the time.
  * Call multiple time to get the key pressed after (still in the same frame time).
@@ -218,11 +221,16 @@ bool isKeyUp(Key key);          /// Check if a key is not being pressed.
  */
 Key getKeyPressed();
 
-bool isMouseButtonPressed(MouseButton button);  /// Check if a key has been pressed once.
-bool isMouseButtonReleased(MouseButton button); /// Check if a key has been released once.
-bool isMouseButtonDown(MouseButton button);     /// Check if a key is being pressed.
-bool isMouseButtonUp(MouseButton button);       /// Check if a key is not being pressed.
-Vector2& getMousePosition();                    /// Returns the current mouse cursor position.
+/// Check if a mouse button has been pressed once.
+bool isMouseButtonPressed(MouseButton button);
+/// Check if a mouse button has been released once.
+bool isMouseButtonReleased(MouseButton button);
+/// Check if a mouse button is being pressed.
+bool isMouseButtonDown(MouseButton button);
+/// Check if a mouse is not being pressed.
+bool isMouseButtonUp(MouseButton button);
+/// Returns the current mouse cursor position.
+Vector2& getMousePosition();
 /**
  * @brief Returns any movement of the mouse wheel.
  * The returning x from the Vector2 shows the vertical movement, Positive means upwards, Negative means downwards.
@@ -243,6 +251,36 @@ Vector2& getMouseWheelMovement();
 * @return       A value between -1 and 1 representing the specified point.
 */
 double perlinNoise(double x, double y, double seed);
+
+/// Log a trace message to console, see https://github.com/gabime/spdlog for docs.
+template<typename... Args>
+void logTrace(Args... args) {
+    Log::getClientLogger()->trace(args...);
+}
+
+/// Log a message to console, see https://github.com/gabime/spdlog for docs.
+template<typename... Args>
+void logInfo(Args... args) {
+    Log::getClientLogger()->info(args...);
+}
+
+/// Log a warning message to console, see https://github.com/gabime/spdlog for docs.
+template<typename... Args>
+void logWarn(Args... args) {
+    Log::getClientLogger()->warn(args...);
+}
+
+/// Log an error message to console, see https://github.com/gabime/spdlog for docs.
+template<typename... Args>
+void logError(Args... args) {
+    Log::getClientLogger()->error(args...);
+}
+
+/// Log a critical error message to console, see https://github.com/gabime/spdlog for docs.
+template<typename... Args>
+void logCritical(Args... args) {
+    Log::getClientLogger()->critical(args...);
+}
 
 } // namespace pt
 

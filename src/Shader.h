@@ -27,7 +27,7 @@ private:
     std::unordered_map<std::string, int> mUniformLocationCache;
 
     int mSuccess;
-    char mErrorLog[512];
+    char mErrorLog[512] = {};
 
     std::string loadShaderFromFile(const std::string& shaderFilePath);
     unsigned int compileShader(unsigned int shaderType, const std::string& source);

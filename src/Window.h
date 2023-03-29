@@ -64,7 +64,13 @@ private:
         m_glfwWindow(0),
         m_lastFrameTime(0.0f),
         m_deltaTime(0.0f),
+        m_currentKeyState(),
+        m_lastKeyState(),
+        m_pressedKeyQueue(),
         m_pressedKeyCount(0),
+        m_currentMouseButtonState(),
+        m_lastMouseButtonState(),
+        m_mouseCursorPos({ 0.0f, 0.0f }),
         m_mouseWheelMovement({ 0.0f, 0.0f }) {}
 
     GLFWwindow* m_glfwWindow;

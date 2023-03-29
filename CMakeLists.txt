@@ -8,8 +8,6 @@ file(GLOB SOURCE "src/*.cpp" "src/*.h")
 file(GLOB ASSETS
 	"assets/shaders/*.vert"
 	"assets/shaders/*.frag"
-	"assets/*.png"
-	"assets/*.jpg"
 )
 
 add_library(${PROJECT_NAME} ${SOURCE} ${ASSETS})
@@ -33,6 +31,6 @@ endif (UNIX)
 
 target_include_directories(${PROJECT_NAME} PRIVATE src vendor/glad-gl4.3/include vendor/glfw/include vendor/stb vendor/glm vendor/spdlog)
 
-# Macro for absolute path to assets folder
+# Macro for absolute path to shaders folder
 # NOTE: use relative path for release
-target_compile_definitions(${PROJECT_NAME} PUBLIC ASSETS_PATH="${CMAKE_CURRENT_SOURCE_DIR}/assets/")
+target_compile_definitions(${PROJECT_NAME} PUBLIC SHADERS_PATH="${CMAKE_CURRENT_SOURCE_DIR}/shaders/")
