@@ -4,8 +4,8 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
-#include "plankton.h"
-#include "Shader.h"
+#include "pt/plankton.h"
+#include "pt/Shader.h"
 
 namespace pt {
 

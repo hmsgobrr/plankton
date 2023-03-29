@@ -1,4 +1,4 @@
-#include "plankton.h"
+#include "pt/plankton.h"
 
 #include <cmath> // for floor()
 

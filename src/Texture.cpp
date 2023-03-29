@@ -1,6 +1,6 @@
-#include "Texture.h"
+#include "pt/Texture.h"
 
-#include "Log.h"
+#include "pt/Log.h"
 
 #include "glad/glad.h"
 

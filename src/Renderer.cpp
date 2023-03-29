@@ -1,11 +1,11 @@
-#include "Renderer.h"
+#include "pt/Renderer.h"
 
 #include "glm/ext/matrix_clip_space.hpp"
 #include "glm/ext/matrix_transform.hpp"
 
 #include <cstdlib> // for exit()
 
-#include "Log.h"
+#include "pt/Log.h"
 
 #ifndef SHADERS_PATH
 #define SHADERS_PATH "../shaders/"

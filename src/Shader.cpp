@@ -1,9 +1,9 @@
-#include "Shader.h"
+#include "pt/Shader.h"
 
 #include "glad/glad.h"
 #include "glm/gtc/type_ptr.hpp"
 
-#include "Log.h"
+#include "pt/Log.h"
 
 #include <fstream>
 #include <sstream>

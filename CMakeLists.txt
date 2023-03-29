@@ -29,7 +29,7 @@ if (UNIX)
 	target_link_libraries(${PROJECT_NAME} GL pthread)
 endif (UNIX)
 
-target_include_directories(${PROJECT_NAME} PRIVATE src vendor/glad-gl4.3/include vendor/glfw/include vendor/stb vendor/glm vendor/spdlog)
+target_include_directories(${PROJECT_NAME} PRIVATE include vendor/glad-gl4.3/include vendor/glfw/include vendor/stb vendor/glm vendor/spdlog)
 
 # Macro for absolute path to shaders folder
 # NOTE: use relative path for release

@@ -4,7 +4,7 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
-#include "plankton.h"
+#include "pt/plankton.h"
 
 #ifndef PT_MAX_KEYBOARD_KEYS
 #define PT_MAX_KEYBOARD_KEYS 512

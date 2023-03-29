@@ -1,7 +1,8 @@
 #ifndef PLANKTON_H
 #define PLANKTON_H
 
-#include "Texture.h"
+#include "pt/Texture.h"
+#include "pt/Log.h"
 
 namespace pt {
 
