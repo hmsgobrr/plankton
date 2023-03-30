@@ -17,4 +17,30 @@ add_subdirectory(path/to/plankton)
 target_link_libraries(${PROJECT_NAME} plankton)
 target_include_directories(${PROJECT_NAME} PRIVATE path/to/plankton/include path/to/plankton/vendor/spdlog)
 ```
-Note that this project uses a third-party library, [spdlog](https://github.com/gabime/spdlog) for logging.
+Note that this project uses a third-party library, [spdlog](https://github.com/gabime/spdlog) for logging.\
+\
+Example Use (this creates a white empty window):
+```cpp
+#include "pt/plankton.h"
+
+#define SCREEN_WIDTH  800
+#define SCREEE_HEIGHT 450
+
+int main() {
+	pt::initWindow(SCREEN_WIDTH, SCREEE_HEIGHT, "Hello World!");
+
+	while (!pt::windowShouldClose()) {
+		pt::prepareFrame();
+
+		pt::clearFrame({ 1.0f, 1.0f, 1.0f, 1.0f });
+
+		// Drawing code goes here
+
+		pt::display();
+	}
+
+	pt::shutdown();
+	
+	return 0;
+}
+```
