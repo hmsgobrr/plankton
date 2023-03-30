@@ -8,8 +8,10 @@ This project is in early development stage.\
 \
 Since I'm still new to OpenGL, this library probably won't be as efficient as other.
 But I still intend to make this library usable and also make it good enough to get in my top 5 game libraries to use.
+If you're looking for a good game library, I recommend [raylib](https://www.raylib.com/), it's a really good game library
+for those who enjoys programming.
 ## Usage
-To use this library, if you use cmake you can add this repo to your project as a subdirectory and link the library like so:\
+To use this library, if you use cmake you can add this repo to your project as a subdirectory and link the library like so:
 ```cmake
 # CMakeLists.txt
 
@@ -24,10 +26,10 @@ Example Use (this creates a white empty window):
 #include "pt/plankton.h"
 
 #define SCREEN_WIDTH  800
-#define SCREEE_HEIGHT 450
+#define SCREEN_HEIGHT 450
 
 int main() {
-	pt::initWindow(SCREEN_WIDTH, SCREEE_HEIGHT, "Hello World!");
+	pt::initWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Hello World!");
 
 	while (!pt::windowShouldClose()) {
 		pt::prepareFrame();
