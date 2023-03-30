@@ -4,7 +4,7 @@ project(plankton C CXX)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-file(GLOB SOURCE "src/*.cpp" "src/*.h")
+file(GLOB SOURCE "src/*.cpp" "include/pt/*.h")
 file(GLOB ASSETS
 	"assets/shaders/*.vert"
 	"assets/shaders/*.frag"
