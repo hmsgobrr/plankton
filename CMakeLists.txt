@@ -24,6 +24,10 @@ set(GLFW_BUILD_TESTS OFF CACHE BOOL "" force)
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" force)
 add_subdirectory(vendor/glfw)
 
+# spdlog
+add_subdirectory(vendor/spdlog)
+target_link_libraries(${PROJECT_NAME} spdlog)
+
 target_link_libraries(${PROJECT_NAME} glfw)
 if (UNIX)
 	target_link_libraries(${PROJECT_NAME} GL pthread dl m)
@@ -33,9 +37,9 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 	include
 	vendor/glad-gl4.3/include
 	vendor/glfw/include
+	vendor/spdlog/include
 	vendor/stb
 	vendor/glm
-	vendor/spdlog
 	vendor/audio
 )
 
