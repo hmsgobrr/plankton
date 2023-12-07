@@ -15,9 +15,14 @@ struct Rect {
 	float x, y, width, height;
 };
 
-/// A 2D Vector struct
+/// A 2D Vector struct consisting x, y in floats
 struct Vector2 {
 	float x, y;
+};
+
+/// A 2D Vector struct consisting x, y in integers
+struct Vector2Int {
+	int x, y;
 };
 
 /// Struct for representing a camera viewpoint.
